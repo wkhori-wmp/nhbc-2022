@@ -8,6 +8,7 @@ export const Link = styled(RouterLink)`
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.15);
+    width: 250px;
   }
 `;
 
