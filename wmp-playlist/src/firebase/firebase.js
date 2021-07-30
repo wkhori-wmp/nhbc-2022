@@ -18,6 +18,18 @@ const db = firebase.database(app);
 //export default firebase;
 var myUserId = "321";
 
+/**
+ * Function that creates a new playlistItem in firebase
+ * 
+ * Example usage
+ *  createItem(newElement).then(response => {
+ *       console.log('item saved');
+ *       dosomething(response.data);
+ *  });
+ * 
+ * @param {object} item - New item to store
+ * @returns {Promise} - API response
+ */
 export function createItem(item) {
   const dbRef = db.ref('users/' + myUserId + '/playlist/song-' + Math.round(Math.random() * 1000));
   return dbRef.set({
@@ -25,6 +37,18 @@ export function createItem(item) {
   });
 };
 
+/**
+ * Gets all playList items in firebase
+ * 
+ * Example Usage
+ *  getItems().then((querySnapshot) => {
+ *       querySnapshot.forEach(function(response) {
+ *           console.log(response.id, " => ", response.data());
+ *       });
+ *   })
+ * 
+ * @returns {Promise}
+ */
 export function getItems() {
   var dbRef = db.ref('users/' + myUserId + '/playlist');
 
@@ -36,6 +60,17 @@ export function getItems() {
   });
 };
 
+/**
+ * Deletes a playlist item in firebase
+ * 
+ * Example usage
+ *  deleteItem('123').then(() => {
+ *       console.log('item deleted');
+ *  });
+ *  
+ * @param {string} songId - ID of the song to delete
+ * @returns {Promise}
+ */
 export function deleteItem(songId) {
   var dbRef = db.ref('users/' + myUserId + '/playlist/' + songId);
   return dbRef.remove();

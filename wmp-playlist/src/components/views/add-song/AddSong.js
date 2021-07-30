@@ -1,5 +1,5 @@
-import {createItem} from '../../../firebase/firebase';
-import { useEffect, useState } from 'react';
+import { createItem } from '../../../firebase/firebase';
+import { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -24,7 +24,7 @@ const AddSong = () => {
       ...values,
       [name]: value
     });
-  }
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -38,7 +38,7 @@ const AddSong = () => {
     createItem(playlistItem).then(() => {
       history.push('/playlist');
     });
-  }
+  };
 
   return (
     <Box 
