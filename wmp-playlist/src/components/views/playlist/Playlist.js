@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Table, 
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
-} from '@material-ui/core';
-import { getItems } from '../../../firebase/firebase';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { getItems, deleteItem } from '../../../firebase/firebase';
 
 const useStyles = makeStyles({
   table: {
@@ -19,14 +17,27 @@ const useStyles = makeStyles({
 
 const Playlist = () => {
   const classes = useStyles();
-  let [mySongsArr, setmySongsArr]  = useState([])
+  let [mySongsArr, setmySongsArr]  = useState([]);
+
+  const fetchSongs = () => {
+    getItems().then(function(result) {
+      console.log(result);
+      if (!result) setmySongsArr([]);
+      else setmySongsArr(Object.keys(result).map(item => ( { ...result[item], id: item } ) ));
+    }); 
+  }
 
   useEffect(() => {
-    getItems().then(function(result) {
-      setmySongsArr(Object.keys(result).map(item => ( { ...result[item], id: item } ) ));
-    }); 
+    fetchSongs();
   },[]);
 
+  const handleDelete = async (id) => {
+    await deleteItem(id);
+    await fetchSongs();
+    console.log('here')
+  }
+  
+  console.log(mySongsArr)
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -46,8 +57,7 @@ const Playlist = () => {
               </TableCell>
               <TableCell>{song.artist}</TableCell>
               <TableCell>{song.album}</TableCell>
-              <TableCell onClick={() => console.log(song.id)}>DELETE</TableCell> 
-              {/* ADD IN DELETE FUNCTION */}
+              <TableCell onClick={() => handleDelete(song.id)}>DELETE</TableCell> 
             </TableRow>
           ))}
         </TableBody>

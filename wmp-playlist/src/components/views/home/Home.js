@@ -7,7 +7,7 @@ import {
   PageWrapper,
   Picture,
   Words,
-} from "./Home.style";
+} from "./Home.style.js";
 
 const Home = () => {
   return (
