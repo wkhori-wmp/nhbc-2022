@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper
+} from '@material-ui/core';
 import { getItems, deleteItem } from '../../../firebase/firebase';
+import { TableWrapper } from "./Playlist.style";
 
 const useStyles = makeStyles({
   table: {
@@ -34,12 +37,12 @@ const Playlist = () => {
   const handleDelete = async (id) => {
     await deleteItem(id);
     await fetchSongs();
-    console.log('here')
   }
-  
-  console.log(mySongsArr)
+
   return (
-    <TableContainer component={Paper}>
+    <TableWrapper>
+      <h1>Playlist</h1>
+      <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -63,6 +66,7 @@ const Playlist = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </TableWrapper>
   );
 }
 
