@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core/AppBar';
 import { Link, LinkWrapper } from './NavBar.style';
 
 function NavBar() {
