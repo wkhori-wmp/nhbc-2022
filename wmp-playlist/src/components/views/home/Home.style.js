@@ -8,18 +8,18 @@ import { Link as RouterLink } from "react-router-dom";
 //      the value 'center'
 
 export const PageWrapper = styled.div`
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
+
 export const Picture = styled.div`
-  display: flex;
   margin: 40px 0px;
 `;
+
 export const LinkWrapper = styled.div`
-  display: flex;
 `;
+
 export const Link = styled(RouterLink)`
   text-decoration: 0;
   font-size: 16px;
@@ -39,6 +39,7 @@ export const Link = styled(RouterLink)`
     background-color: rgba(0, 185, 255, 0.6);
   }
 `;
+
 export const Words = styled.div`
   display: flex;
   font-weight: bold;
@@ -46,3 +47,5 @@ export const Words = styled.div`
   text-align: center;
   margin: 50px 100px;
 `;
+
+//is it better to use this to edit txt or typography in JS?

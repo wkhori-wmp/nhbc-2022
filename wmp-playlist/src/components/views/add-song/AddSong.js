@@ -1,8 +1,7 @@
 import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button } from '@material-ui/core';
-import { TextInput } from "./AddSong.style";
+import { TextField, Box, Button } from '@material-ui/core';
 
 const AddSong = () => {
 
@@ -50,7 +49,7 @@ const AddSong = () => {
       onSubmit={handleSubmit}
       >
       <h1>Add Song</h1>
-        <TextInput 
+        <TextField 
           required 
           autoComplete="off"
           label="Title"
@@ -58,7 +57,7 @@ const AddSong = () => {
           value={values.title} 
           onChange={handleInputChange}
         />
-        <TextInput 
+        <TextField 
           required 
           autoComplete="off"
           label="Artist" 
@@ -66,7 +65,7 @@ const AddSong = () => {
           value={values.artist}
           onChange={handleInputChange}
         />
-        <TextInput 
+        <TextField 
           autoComplete="off"
           label="Album"
           name="album"
