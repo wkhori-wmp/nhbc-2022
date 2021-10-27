@@ -2,36 +2,38 @@ import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { TextField, Box, Button } from '@material-ui/core';
-import { AddSongWrapper } from "./AddSong.style";
+import { AddSongWrapper } from './AddSong.style';
 
 const AddSong = () => {
-
+  // The useHistory hook gives you access to the history instance that you may use to navigate.
   const history = useHistory();
-
+  // Default values for the form
   const initialValues = {
     title: '',
     artist: '',
     album: '',
   };
 
+  // State variable used to control the form
+  // useState declares the state variable, this preserves values between function calls
   const [values, setValues] = useState(initialValues);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const playlistItem = {
       title: e.target[0].value,
       artist: e.target[1].value,
       album: e.target[2].value,
-    }
+    };
 
     createItem(playlistItem).then(() => {
       history.push('/playlist');
@@ -40,45 +42,43 @@ const AddSong = () => {
 
   return (
     <AddSongWrapper>
-    <h1>Add Song</h1>
-    <Box 
-    display="flex" 
-    flexDirection="column" 
-    justifyContent="space-evenly" 
-    component="form"
-    gridRowGap="30px"
-    width="800px"
-    onSubmit={handleSubmit}
-    >
-        <TextField 
-          required 
-          autoComplete="off"
-          label="Title"
-          name="title"
-          value={values.title} 
+      <h1>Add Song</h1>
+      <Box
+        display='flex'
+        flexDirection='column'
+        justifyContent='space-evenly'
+        component='form'
+        gridRowGap='30px'
+        width='800px'
+        onSubmit={handleSubmit}
+      >
+        <TextField
+          required
+          autoComplete='off'
+          label='Title'
+          name='title'
+          value={values.title}
           onChange={handleInputChange}
         />
-        <TextField 
-          required 
-          autoComplete="off"
-          label="Artist" 
-          name="artist"
+        <TextField
+          required
+          autoComplete='off'
+          label='Artist'
+          name='artist'
           value={values.artist}
           onChange={handleInputChange}
         />
-        <TextField 
-          autoComplete="off"
-          label="Album"
-          name="album"
+        <TextField
+          autoComplete='off'
+          label='Album'
+          name='album'
           value={values.album}
           onChange={handleInputChange}
         />
-        <Button 
-          color="primary" 
-          type="submit">
+        <Button color='primary' type='submit'>
           Add Song
         </Button>
-    </Box>
+      </Box>
     </AddSongWrapper>
   );
 };

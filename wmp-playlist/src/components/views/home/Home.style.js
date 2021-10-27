@@ -1,5 +1,5 @@
-import styled from "styled-components/macro";
-import { Link as RouterLink } from "react-router-dom";
+import styled from 'styled-components/macro';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -42,4 +42,3 @@ export const Description = styled.div`
   text-align: center;
   margin: 50px 100px;
 `;
-
