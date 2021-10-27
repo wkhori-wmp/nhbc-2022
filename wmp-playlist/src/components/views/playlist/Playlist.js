@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper
 } from '@material-ui/core';
+import { PlaylistWrapper } from "./Playlist.style";
 import { getItems } from '../../../firebase/firebase';
 
 const useStyles = makeStyles({
@@ -28,7 +29,9 @@ const Playlist = () => {
   },[]);
 
   return (
-    <TableContainer component={Paper}>
+    <PlaylistWrapper>
+      <h1>Playlist</h1>
+      <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -53,6 +56,8 @@ const Playlist = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </PlaylistWrapper>
+    
   );
 }
 
