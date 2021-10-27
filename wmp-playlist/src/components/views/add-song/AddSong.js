@@ -18,6 +18,8 @@ const AddSong = () => {
   // useState declares the state variable, this preserves values between function calls
   const [values, setValues] = useState(initialValues);
 
+  // updates the appropriate value in the state variable "values" object
+  // in short, it updates the form, without it, you will not be able to enter data
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -27,6 +29,8 @@ const AddSong = () => {
   };
 
   const handleSubmit = (e) => {
+    // e.preventDefault prevents the default event action
+    // in this case for a submit button it stops the page from reloading
     e.preventDefault();
 
     const playlistItem = {

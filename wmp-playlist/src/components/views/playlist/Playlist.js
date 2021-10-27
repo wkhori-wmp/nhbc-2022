@@ -10,7 +10,7 @@ import {
   Paper,
 } from '@material-ui/core';
 import { PlaylistWrapper } from './Playlist.style';
-import { getItems } from '../../../firebase/firebase';
+import { getItems, deleteItem } from '../../../firebase/firebase';
 
 const useStyles = makeStyles({
   table: {
@@ -32,6 +32,10 @@ const Playlist = () => {
     });
   }, []);
 
+  const handleDelete = (id) => {
+    deleteItem(id);
+  }
+
   return (
     <PlaylistWrapper>
       <h1>Playlist</h1>
@@ -46,6 +50,10 @@ const Playlist = () => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {/* To render an array of jsx items you can use a map the key in a map is important
+                so React knows which item to update when its value changes without the key react
+                will re-render the entire list this wont cause any issues if the list is short
+                but if you have a very long list it will cause performance issues  */}
             {mySongsArr.map((song) => (
               <TableRow key={song.id}>
                 <TableCell component='th' scope='row'>
@@ -53,7 +61,7 @@ const Playlist = () => {
                 </TableCell>
                 <TableCell>{song.artist}</TableCell>
                 <TableCell>{song.album}</TableCell>
-                <TableCell onClick={() => console.log(song.id)}>
+                <TableCell onClick={() => handleDelete(song.id)}>
                   DELETE
                 </TableCell>
               </TableRow>
