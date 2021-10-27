@@ -13,6 +13,8 @@ const App = () => {
       path={route.path}
     />
   ));
+  // The NavBar component will live at the top of every page
+  // The switch renders the appropriate component (page) for the appropriate path
   return (
     <div className='App'>
       <NavigationContainer>

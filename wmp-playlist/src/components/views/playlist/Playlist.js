@@ -22,6 +22,8 @@ const Playlist = () => {
   const classes = useStyles();
   let [mySongsArr, setmySongsArr] = useState([]);
 
+  // Use effect hook with an empty dependency array [], will run only on mounted
+  // This means it will only one the code it contains one time
   useEffect(() => {
     getItems().then(function (result) {
       setmySongsArr(
@@ -54,7 +56,6 @@ const Playlist = () => {
                 <TableCell onClick={() => console.log(song.id)}>
                   DELETE
                 </TableCell>
-                {/* ADD IN DELETE FUNCTION */}
               </TableRow>
             ))}
           </TableBody>
