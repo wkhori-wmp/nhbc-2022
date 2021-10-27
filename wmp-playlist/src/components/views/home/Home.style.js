@@ -6,41 +6,39 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 800px;
+  margin: 0 auto;
 `;
 
-export const Picture = styled.div`
+export const MainImage = styled.div`
   display: flex;
   margin: 40px 0px;
 `;
 
 export const LinkWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 450px;
 `;
 
 export const Link = styled(RouterLink)`
-  text-decoration: 0;
+  text-decoration: none;
   font-size: 16px;
   color: white;
   font-weight: bold;
   text-align: center;
-  margin: 10px 100px;
-  padding: 0px 20px;
   background-color: #3f51b5;
-  height: 15px;
+  padding: 10px 15px;
   width: 100px;
-  box-shadow: none;
-  border: none;
-  padding-top: 8px;
-  padding-bottom: 15px;
   &:hover {
     background-color: rgba(0, 185, 255, 0.6);
   }
 `;
 
-export const Words = styled.div`
+export const Description = styled.div`
   display: flex;
   font-weight: bold;
-  inline-size: 330px;
+  width: 330px;
   text-align: center;
   margin: 50px 100px;
 `;

@@ -3,12 +3,14 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export const Link = styled(RouterLink)`
   text-decoration: none;
-  color: white;
+  color: ${({ $active }) => !!$active ? "lightgray" : "white"};
   margin: 0 5px;
   padding: 5px;
 
+  ${({ $active }) => !!$active ? "border-bottom: 1px solid lightgray" : ""};
+
   &:hover {
-    background-color: rgba(0, 0, 0, 0.15);
+    color: ${({ hovercolor }) => hovercolor ? hovercolor : 'lightgray'};
     width: 250px;
   }
 `;

@@ -5,27 +5,25 @@ import {
   Link,
   LinkWrapper,
   PageWrapper,
-  Picture,
-  Words,
+  MainImage,
+  Description,
 } from "./Home.style";
 
 const Home = () => {
   return (
-    <div>
       <PageWrapper>
-        <Picture>
+        <MainImage>
           <img src={HomeImage} alt="Home" width="450" height="450" />
-        </Picture>
+        </MainImage>
         <LinkWrapper>
           <Link to="/add-song">Add Song</Link>
           <Link to="/playlist">Playlist</Link>
         </LinkWrapper>
-        <Words>
+        <Description>
           Welcome to WMP Playlist! You can search through song recommendations
           and add your own!
-        </Words>
+        </Description>
       </PageWrapper>
-    </div>
   );
 };
 

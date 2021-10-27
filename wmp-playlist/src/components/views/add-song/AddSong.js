@@ -2,6 +2,7 @@ import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { TextField, Box, Button } from '@material-ui/core';
+import { AddSongWrapper } from "./AddSong.style";
 
 const AddSong = () => {
 
@@ -38,17 +39,17 @@ const AddSong = () => {
   };
 
   return (
+    <AddSongWrapper>
+    <h1>Add Song</h1>
     <Box 
-      display="flex" 
-      flexDirection="column" 
-      justifyContent="space-evenly" 
-      alignItems="center" 
-      textAlign="center"
-      minHeight="50vh"
-      component="form"
-      onSubmit={handleSubmit}
-      >
-      <h1>Add Song</h1>
+    display="flex" 
+    flexDirection="column" 
+    justifyContent="space-evenly" 
+    component="form"
+    gridRowGap="30px"
+    width="800px"
+    onSubmit={handleSubmit}
+    >
         <TextField 
           required 
           autoComplete="off"
@@ -78,6 +79,7 @@ const AddSong = () => {
           Add Song
         </Button>
     </Box>
+    </AddSongWrapper>
   );
 };
 

@@ -1,16 +1,21 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Link, LinkWrapper } from './NavBar.style';
 
 function NavBar() {
+  const location = useLocation();
+
   return (
     <AppBar position='static'>
       <Toolbar>
-        <Typography variant='h6'>WMP Playlist</Typography>
+        <Link hovercolor="white" to='/'>
+          <Typography variant='h6'>WMP Playlist</Typography>
+        </Link>
         <LinkWrapper>
-          <Link to='/'>Home</Link>
-          <Link to='/playlist'>Playlist</Link>
-          <Link to='/add-song'>Add Song</Link>
+          <Link $active={location.pathname === '/' || location.pathname === ''} to='/'>Home</Link>
+          <Link $active={location.pathname === '/playlist'} to='/playlist'>Playlist</Link>
+          <Link $active={location.pathname === '/add-song'} to='/add-song'>Add Song</Link>
         </LinkWrapper>
       </Toolbar>
     </AppBar>
