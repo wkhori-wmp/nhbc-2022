@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
 } from '@material-ui/core';
 import { PlaylistWrapper } from './Playlist.style';
 import { getItems, deleteItem } from '../../../firebase/firebase';
@@ -22,18 +23,24 @@ const Playlist = () => {
   const classes = useStyles();
   let [mySongsArr, setmySongsArr] = useState([]);
 
-  // Use effect hook with an empty dependency array [], will run only on mounted
-  // This means it will only one the code it contains one time
-  useEffect(() => {
+  const getPlaylist = () => {
     getItems().then(function (result) {
       setmySongsArr(
         Object.keys(result).map((item) => ({ ...result[item], id: item }))
       );
     });
+
+  }
+
+  // Use effect hook with an empty dependency array [], will run only on mounted
+  // This means it will only one the code it contains one time
+  useEffect(() => {
+    getPlaylist();
   }, []);
 
   const handleDelete = (id) => {
     deleteItem(id);
+    getPlaylist();
   }
 
   return (
@@ -61,8 +68,8 @@ const Playlist = () => {
                 </TableCell>
                 <TableCell>{song.artist}</TableCell>
                 <TableCell>{song.album}</TableCell>
-                <TableCell onClick={() => handleDelete(song.id)}>
-                  DELETE
+                <TableCell>
+                  <Button color='primary' onClick={() => handleDelete(song.id)}>DELETE</Button>
                 </TableCell>
               </TableRow>
             ))}
