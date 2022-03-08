@@ -9,7 +9,8 @@ const TRASH_URL = 'https://media.istockphoto.com/vectors/trash-cangarbage-canrub
 const Playlist = () => {
   // const classes = useStyles();
   let [mySongsArr, setmySongsArr] = useState([
-  {index: 1, title: 'Dream On', artist: 'Aerosmith', album: 'Aerosmith', ytLink: 'https://www.youtube.com/watch?v=89dGC8de0CA', delete: TRASH_URL}
+  {index: 1, title: 'Dream On', artist: 'Aerosmith', album: 'Aerosmith', ytLink: 'https://www.youtube.com/watch?v=89dGC8de0CA', delete: TRASH_URL},
+  {index: 2, title: 'Beat It', artist: 'Michael Jackson', album: 'Thriller', ytLink: 'https://www.youtube.com/watch?v=oRdxUFDoQe0', delete: TRASH_URL}
   ]);
 
   const getPlaylist = () => {
@@ -39,8 +40,15 @@ const Playlist = () => {
     getPlaylist();
   }
 
+  const removeSong = (index) => {
+    let newSongArr = mySongsArr.filter(a => a.index !== index)
+    setmySongsArr(newSongArr)
+  }
+
   function imageFormatter(cell, row) {
-    return <div style={{cursor: 'pointer'}} onClick={() => setmySongsArr([])}>
+    return <div 
+              style={{cursor: 'pointer'}} 
+              onClick={() => { removeSong(row.index) }}>
             <img src={cell} height={20}/>
           </div> ;
   }
@@ -65,43 +73,23 @@ const Playlist = () => {
     align: 'center',
     text: 'Delete?',
     headerAlign: 'center',
-    formatter: imageFormatter
+    formatter: imageFormatter,
+    formatExtraData: mySongsArr,
   }];
+
+  const emptyDataMessage = () => { return <div style={{display: 'flex',  justifyContent:'center'}}>No data to display... go add some songs to the playlist!</div>}
 
   return (
     <PlaylistWrapper>
       <h1>Playlist</h1>
       <BootstrapTable 
-          noDataIndication={() => console.log('No Data at the moment... to be implemented later')}
+          style={{cursor: 'pointer'}}
+          noDataIndication={emptyDataMessage}
           keyField='index'
           data={ mySongsArr }
           columns={ columns }
           expandRow={ expandRow }
       />
-      {/* <Table striped bordered hover minWidth="350">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Album</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mySongsArr.map((song) => (
-              <tr key={song.id}>
-                <td>{song.index}</td>
-                <td>{song.title}</td>
-                <td>{song.artist}</td>
-                <td>{song.album}</td>
-                <td>
-                  <Button color='primary' onClick={() => handleDelete(song.id)}>DELETE</Button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table> */}
     </PlaylistWrapper>
   );
 };
