@@ -2,7 +2,7 @@ import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { TextField, Box, Button } from '@material-ui/core';
-import { AddSongWrapper } from './AddSong.style';
+import { AddSongWrapper, AddSongForm, FormInputField, FormTitle } from './AddSong.style';
 
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
@@ -21,7 +21,9 @@ const AddSong = () => {
   // updates the appropriate value in the state variable "values" object
   // in short, it updates the form, without it, you will not be able to enter data
   const handleInputChange = (e) => {
+    console.log('hi');
     const { name, value } = e.target;
+    console.log(name, value);
     setValues({
       ...values,
       [name]: value,
@@ -46,43 +48,22 @@ const AddSong = () => {
 
   return (
     <AddSongWrapper>
-      <h1>Add Song</h1>
-      <Box
-        display='flex'
-        flexDirection='column'
-        justifyContent='space-evenly'
-        component='form'
-        gridRowGap='30px'
-        width='800px'
-        onSubmit={handleSubmit}
-      >
-        <TextField
-          required
-          autoComplete='off'
-          label='Title'
-          name='title'
-          value={values.title}
-          onChange={handleInputChange}
-        />
-        <TextField
-          required
-          autoComplete='off'
-          label='Artist'
-          name='artist'
-          value={values.artist}
-          onChange={handleInputChange}
-        />
-        <TextField
-          autoComplete='off'
-          label='Album'
-          name='album'
-          value={values.album}
-          onChange={handleInputChange}
-        />
-        <Button color='primary' type='submit'>
-          Add Song
-        </Button>
-      </Box>
+      <FormTitle>Add Song</FormTitle>
+      <AddSongForm onSubmit={handleSubmit}>
+        <label>
+          Title:
+        </label>
+        <FormInputField name="title" type="text" defaultValue={values.title} required={true} onChange={handleInputChange} />
+        <label>
+          Artist:
+          </label>
+          <FormInputField name="artist" type="text" defaultValue={values.artist} required={true} onChange={handleInputChange} />
+        <label>
+          Album:
+          </label>
+          <FormInputField name="album" type="text" defaultValue={values.album} required={false} onChange={handleInputChange} />
+        <input type="submit" value="Add Song" />
+      </AddSongForm>
     </AddSongWrapper>
   );
 };
