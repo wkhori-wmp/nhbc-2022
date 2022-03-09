@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
+import { CSVLink } from 'react-csv';
 import { PlaylistWrapper } from './Playlist.style';
 import { getItems, deleteItem } from '../../../firebase/firebase';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -77,6 +77,12 @@ const Playlist = () => {
     formatExtraData: mySongsArr,
   }];
 
+  const csvHeaders = [
+    { label: 'Song Title', key: 'title' },
+    { label: 'Artist', key: 'artist' },    
+    { label: 'Album', key: 'album' },
+  ];
+
   const emptyDataMessage = () => { return <div style={{display: 'flex',  justifyContent:'center'}}>No data to display... go add some songs to the playlist!</div>}
 
   return (
@@ -90,6 +96,7 @@ const Playlist = () => {
           columns={ columns }
           expandRow={ expandRow }
       />
+      <CSVLink data={mySongsArr} headers={csvHeaders}>Export your playlist to a CSV</CSVLink>
     </PlaylistWrapper>
   );
 };
