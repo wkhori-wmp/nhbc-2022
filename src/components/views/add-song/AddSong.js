@@ -20,9 +20,7 @@ const AddSong = () => {
   // updates the appropriate value in the state variable "values" object
   // in short, it updates the form, without it, you will not be able to enter data
   const handleInputChange = (e) => {
-    console.log('hi');
     const { name, value } = e.target;
-    console.log(name, value);
     setValues({
       ...values,
       [name]: value,
