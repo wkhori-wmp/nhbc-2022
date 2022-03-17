@@ -1,7 +1,6 @@
 import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { TextField, Box, Button } from '@material-ui/core';
 import { AddSongWrapper, AddSongForm, FormInputField, FormTitle } from './AddSong.style';
 
 const AddSong = () => {
