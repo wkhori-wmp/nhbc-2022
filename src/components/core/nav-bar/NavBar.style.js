@@ -18,3 +18,11 @@ export const Link = styled(RouterLink)`
 export const LinkWrapper = styled.div`
   margin-left: auto;
 `;
+
+export const NavbarWrapper = styled.div`
+  position: static;
+  background-color: blue;
+  display: flex;
+  height: 50px;
+  align-items: center;
+`;

@@ -1,17 +1,15 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import { Link, LinkWrapper } from './NavBar.style';
+import { Link, LinkWrapper, NavbarWrapper } from './NavBar.style';
 
 // Navbar returns a JSX component
 // This is a functional component that utilizes hooks
 const NavBar = () => {
   const location = useLocation();
   return (
-    <AppBar position='static'>
-      <Toolbar>
+    <NavbarWrapper>
         <Link hovercolor='white' to='/'>
-          <Typography variant='h6'>WMP Playlist</Typography>
+          <div>WMP Playlist</div>
         </Link>
         <LinkWrapper>
           <Link
@@ -27,8 +25,7 @@ const NavBar = () => {
             Add Song
           </Link>
         </LinkWrapper>
-      </Toolbar>
-    </AppBar>
+    </NavbarWrapper>
   );
 };
 
