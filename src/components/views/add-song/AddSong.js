@@ -12,6 +12,7 @@ const AddSong = () => {
     title: '',
     artist: '',
     album: '',
+    ytLink: '',
   };
 
   // State variable used to control the form
@@ -37,6 +38,7 @@ const AddSong = () => {
       title: e.target[0].value,
       artist: e.target[1].value,
       album: e.target[2].value,
+      ytLink: e.target[3].value,
     };
 
     createItem(playlistItem).then(() => {
@@ -53,7 +55,7 @@ const AddSong = () => {
         justifyContent='space-evenly'
         component='form'
         gridRowGap='30px'
-        width='800px'
+        width='100%'
         onSubmit={handleSubmit}
       >
         <TextField
@@ -77,6 +79,13 @@ const AddSong = () => {
           label='Album'
           name='album'
           value={values.album}
+          onChange={handleInputChange}
+        />
+        <TextField
+          autoComplete='off'
+          label='YouTube Link'
+          name='ytLink'
+          value={values.ytLink}
           onChange={handleInputChange}
         />
         <Button color='primary' type='submit'>
