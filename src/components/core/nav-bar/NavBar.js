@@ -16,7 +16,6 @@ const Nav = styled.nav`
   }
 `
 
-
 const NavBar = () => {
   return (
     <Nav>
@@ -31,29 +30,3 @@ const NavBar = () => {
 }
 
 export default NavBar;
-
-// const NavBar = () => {
-//   return (
-//     <AppBar position='static'>
-//       <Toolbar>
-//         <Link hovercolor='white' to='/'>
-//           <Typography variant='h6'>WMP Playlist</Typography>
-//         </Link>
-//         <LinkWrapper>
-//           <Link
-//             $active={location.pathname === '/' || location.pathname === ''}
-//             to='/'
-//           >
-//             Home
-//           </Link>
-//           <Link $active={location.pathname === '/playlist'} to='/playlist'>
-//             Playlist
-//           </Link>
-//           <Link $active={location.pathname === '/add-song'} to='/add-song'>
-//             Add Song
-//           </Link>
-//         </LinkWrapper>
-//       </Toolbar>
-//     </AppBar>
-//   );
-// };

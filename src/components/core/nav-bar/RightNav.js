@@ -10,7 +10,7 @@ const HamburgerLinks = styled.ul`
     color: #FFF;
     padding: 18px 10px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 450px) {
     flex-flow: column nowrap;
     background-color: #000;
     position: fixed;
@@ -20,6 +20,7 @@ const HamburgerLinks = styled.ul`
     height: 100vh;
     width: 300px;
     padding-top: 3.5rem;
+    z-index: 19;
   }
 `;
 
