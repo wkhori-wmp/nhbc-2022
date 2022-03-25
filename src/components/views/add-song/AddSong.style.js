@@ -21,8 +21,8 @@ export const breakpoints = (
 };
 
 export const AddSongWrapper = styled.div`
-  margin-top: 30px;
-  float: left;
+  margin: 0 auto;
+  max-width: 800px;
   ${breakpoints("margin-left", "%", [
     { 2000: 25 },
     { 600: 10 },
