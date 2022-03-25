@@ -11,6 +11,7 @@ const AddSong = () => {
     title: '',
     artist: '',
     album: '',
+    ytLink: '',
   };
 
   // State variable used to control the form
@@ -36,6 +37,7 @@ const AddSong = () => {
       title: e.target[0].value,
       artist: e.target[1].value,
       album: e.target[2].value,
+      ytLink: e.target[3].value,
     };
 
     createItem(playlistItem).then(() => {
