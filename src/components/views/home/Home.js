@@ -1,28 +1,27 @@
 import React from 'react';
-import HomeImage from './logo512.png';
 
 import {
-  Link,
-  LinkWrapper,
   PageWrapper,
   MainImage,
   Description,
+  DescriptionAndImage,
 } from './Home.style';
 
 const Home = () => {
   return (
     <PageWrapper>
-      <MainImage>
-        <img src={HomeImage} alt='Home' width='450' height='450' />
-      </MainImage>
-      <LinkWrapper>
-        <Link to='/add-song'>Add Song</Link>
-        <Link to='/playlist'>Playlist</Link>
-      </LinkWrapper>
+      <DescriptionAndImage>
       <Description>
         Welcome to WMP Playlist! You can search through song recommendations and
         add your own!
       </Description>
+      <MainImage>
+        <img
+        width={'80%'}
+        height={'auto'}
+        src={'https://media1.giphy.com/media/RJzm826vu7WbJvBtxX/giphy.gif?cid=790b76116300152a7031306d98e99a6ed8a6f94d23cddb66&rid=giphy.gif&ct=s'} alt='Home' />
+      </MainImage>
+      </DescriptionAndImage>
     </PageWrapper>
   );
 };

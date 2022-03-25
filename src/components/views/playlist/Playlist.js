@@ -10,7 +10,8 @@ const Playlist = () => {
   // const classes = useStyles();
   let [mySongsArr, setmySongsArr] = useState([
   {index: 1, title: 'Dream On', artist: 'Aerosmith', album: 'Aerosmith', ytLink: 'https://www.youtube.com/watch?v=89dGC8de0CA', delete: TRASH_URL},
-  {index: 2, title: 'Beat It', artist: 'Michael Jackson', album: 'Thriller', ytLink: 'https://www.youtube.com/watch?v=oRdxUFDoQe0', delete: TRASH_URL}
+  {index: 2, title: 'Beat It', artist: 'Michael Jackson', album: 'Thriller', ytLink: 'https://www.youtube.com/watch?v=oRdxUFDoQe0', delete: TRASH_URL},
+  {index: 3, title: 'Bohemian Rhapsody', artist: 'Queen', album: 'A Night at the Opera', ytLink: 'https://www.youtube.com/watch?v=fJ9rUzIMcZQ', delete: TRASH_URL}
   ]);
 
   const getPlaylist = () => {
@@ -58,16 +59,19 @@ const Playlist = () => {
     text: '#',
     align: 'center',
     headerAlign: 'center',
+    sort: true
   }, {
     dataField: 'title',
     align: 'center',
     text: 'Song Title',
     headerAlign: 'center',
+    sort: true
   }, {
     dataField: 'artist',
     align: 'center',
     text: 'Artist',
     headerAlign: 'center',
+    sort: true
   }, {
     dataField: 'delete',
     align: 'center',

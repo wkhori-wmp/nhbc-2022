@@ -11,6 +11,7 @@ const AddSong = () => {
     title: '',
     artist: '',
     album: '',
+    ytLink: '',
   };
 
   // State variable used to control the form
@@ -36,6 +37,7 @@ const AddSong = () => {
       title: e.target[0].value,
       artist: e.target[1].value,
       album: e.target[2].value,
+      ytLink: e.target[3].value,
     };
 
     createItem(playlistItem).then(() => {
@@ -45,22 +47,50 @@ const AddSong = () => {
 
   return (
     <AddSongWrapper>
-      <FormTitle>Add Song</FormTitle>
-      <AddSongForm onSubmit={handleSubmit}>
-        <label>
-          Title:
-        </label>
-        <FormInputField name="title" type="text" defaultValue={values.title} required={true} onChange={handleInputChange} />
-        <label>
-          Artist:
-          </label>
-          <FormInputField name="artist" type="text" defaultValue={values.artist} required={true} onChange={handleInputChange} />
-        <label>
-          Album:
-          </label>
-          <FormInputField name="album" type="text" defaultValue={values.album} required={false} onChange={handleInputChange} />
-        <input type="submit" value="Add Song" />
-      </AddSongForm>
+      <h1>Add Song</h1>
+      <Box
+        display='flex'
+        flexDirection='column'
+        justifyContent='space-evenly'
+        component='form'
+        gridRowGap='30px'
+        width='100%'
+        onSubmit={handleSubmit}
+      >
+        <TextField
+          required
+          autoComplete='off'
+          label='Title'
+          name='title'
+          value={values.title}
+          onChange={handleInputChange}
+        />
+        <TextField
+          required
+          autoComplete='off'
+          label='Artist'
+          name='artist'
+          value={values.artist}
+          onChange={handleInputChange}
+        />
+        <TextField
+          autoComplete='off'
+          label='Album'
+          name='album'
+          value={values.album}
+          onChange={handleInputChange}
+        />
+        <TextField
+          autoComplete='off'
+          label='YouTube Link'
+          name='ytLink'
+          value={values.ytLink}
+          onChange={handleInputChange}
+        />
+        <Button color='primary' type='submit'>
+          Add Song
+        </Button>
+      </Box>
     </AddSongWrapper>
   );
 };
