@@ -32,3 +32,21 @@ export const AddSongWrapper = styled.div`
     { 600: 80 },
   ])};
 `;
+
+export const AddSongForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  justify-content: space-evenly;
+`;
+
+export const FormInputField = styled.input`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+`;
+
+export const FormTitle = styled.h1`
+font-color: blue;
+`

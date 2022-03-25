@@ -1,8 +1,7 @@
 import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { TextField, Box, Button } from '@material-ui/core';
-import { AddSongWrapper } from './AddSong.style';
+import { AddSongWrapper, AddSongForm, FormInputField, FormTitle } from './AddSong.style';
 
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
