@@ -17,7 +17,7 @@ const App = () => {
   // The switch renders the appropriate component (page) for the appropriate path
   return (
     <div className='App'>
-      <NavigationContainer id="right here?">
+      <NavigationContainer>
         <NavBar />
         <Switch>{renderedRoutes}</Switch>
       </NavigationContainer>
