@@ -59,6 +59,10 @@ const AddSong = () => {
           Album:
           </label>
           <FormInputField name="album" type="text" defaultValue={values.album} required={false} onChange={handleInputChange} />
+          <label>
+          YouTube Link:
+          </label>
+          <FormInputField name="ytLink" type="text" defaultValue={values.ytLink} required={false} onChange={handleInputChange} />
         <input type="submit" value="Add Song" />
       </AddSongForm>
     </AddSongWrapper>

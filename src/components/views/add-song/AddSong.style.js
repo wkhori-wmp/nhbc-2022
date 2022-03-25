@@ -10,7 +10,6 @@ export const AddSongWrapper = styled.div`
 export const AddSongForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 800px;
   justify-content: space-evenly;
 `;
 
