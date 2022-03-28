@@ -52,19 +52,44 @@ const AddSong = () => {
         <label>
           Title:
         </label>
-        <FormInputField name="title" type="text" defaultValue={values.title} required={true} onChange={handleInputChange} />
+        <FormInputField 
+          name="title"
+          type="text"
+          placeholder='Enter the title of your song here'
+          defaultValue={values.title}
+          required={true}
+          onChange={handleInputChange} />
         <label>
           Artist:
           </label>
-          <FormInputField name="artist" type="text" defaultValue={values.artist} required={true} onChange={handleInputChange} />
+          <FormInputField 
+            name="artist" 
+            type="text" 
+            placeholder='Enter the artist here'
+            defaultValue={values.artist} 
+            required={true} 
+            onChange={handleInputChange} />
         <label>
           Album:
           </label>
-          <FormInputField name="album" type="text" defaultValue={values.album} required={false} onChange={handleInputChange} />
+          <FormInputField 
+            name="album" 
+            type="text" 
+            placeholder='Enter the album here'
+            defaultValue={values.album} 
+            required={true} 
+            onChange={handleInputChange} />
           <label>
           YouTube Link:
           </label>
-          <FormInputField name="ytLink" type="text" defaultValue={values.ytLink} required={false} onChange={handleInputChange} />
+          <FormInputField 
+            name="ytLink" 
+            type="text" 
+            placeholder='Enter a YouTube link here. Note: must start with https://www.youtube.com/watch?v='
+            pattern="^https:\/\/www\.youtube\.com\/watch\?v=.*"
+            defaultValue={values.ytLink} 
+            required={true} 
+            onChange={handleInputChange} />
         <input type="submit" value="Add Song" />
       </AddSongForm>
     </AddSongWrapper>

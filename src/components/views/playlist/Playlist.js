@@ -59,19 +59,22 @@ const Playlist = () => {
     text: '#',
     align: 'center',
     headerAlign: 'center',
-    sort: true
+    sort: true,
+    style: { cursor: 'pointer' }
   }, {
     dataField: 'title',
     align: 'center',
     text: 'Song Title',
     headerAlign: 'center',
-    sort: true
+    sort: true,
+    style: { cursor: 'pointer' }
   }, {
     dataField: 'artist',
     align: 'center',
     text: 'Artist',
     headerAlign: 'center',
-    sort: true
+    sort: true,
+    style: { cursor: 'pointer' }
   }, {
     dataField: 'delete',
     align: 'center',
@@ -79,6 +82,7 @@ const Playlist = () => {
     headerAlign: 'center',
     formatter: imageFormatter,
     formatExtraData: mySongsArr,
+    style: { cursor: 'pointer' }
   }];
 
   const csvHeaders = [
