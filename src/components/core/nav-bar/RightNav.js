@@ -24,20 +24,20 @@ const HamburgerLinks = styled.ul`
   }
 `;
 
-const RightNav = ({ open }) => {
+const RightNav = ({ open, toggleMenu }) => {
   return (
     <HamburgerLinks open={open}>        
-      <li>
+      <li onClick={toggleMenu}>
         <Link to="/">
           Home
         </Link>
       </li>
-      <li>
+      <li onClick={toggleMenu}>
       <Link to="/playlist">
           Playlist
         </Link>
       </li>
-      <li>
+      <li onClick={toggleMenu}>
         <Link to="/add-song">
           Add Song
         </Link>
