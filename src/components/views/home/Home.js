@@ -27,10 +27,9 @@ const Home = () => {
       </Description>
       <form>
         <label>
-          Name:
+          Username:
           <input type="text" value={userId} name="name" onChange={handleUserChange} />
         </label>
-        <input type="submit" value="Save"/>
       </form>
       <MainImage>
         <img

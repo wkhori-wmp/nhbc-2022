@@ -26,9 +26,15 @@ const Playlist = () => {
 
   const getPlaylist = () => {
     getItems().then(function (result) {
-      setmySongsArr(
-        Object.keys(result).map((item) => ({ ...result[item], id: item }))
-      );
+      if (result) {
+        setmySongsArr(
+          Object.keys(result).map((item) => ({ ...result[item], id: item }))
+        );
+      } else {
+        setmySongsArr([]);
+      }
+
+    
     });
   }
 
