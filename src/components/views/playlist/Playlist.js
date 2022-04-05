@@ -4,6 +4,7 @@ import { PlaylistWrapper } from './Playlist.style';
 import { getItems, deleteItem } from '../../../firebase/firebase';
 import BootstrapTable from 'react-bootstrap-table-next';
 import styled from 'styled-components';
+import { Trash, Trash2 } from 'react-feather';
 
 const TRASH_URL = 'https://media.istockphoto.com/vectors/trash-cangarbage-canrubbish-bin-icon-vector-id928418914?k=20&m=928418914&s=612x612&w=0&h=hP_RnwBPgcWMJoHqGw9A12vwy5IY3fzfr2dXpx4m6j8=';
 
@@ -15,6 +16,12 @@ const YoutubeVideo = styled.iframe`
     height: 200px;
   }
 `;
+
+const TrashIconWrapper = styled.div`
+&:hover .delete-button {
+  color: red;
+}
+`
 
 const Playlist = () => {
   // const classes = useStyles();
@@ -63,11 +70,11 @@ const Playlist = () => {
   }
 
   function imageFormatter(cell, row) {
-    return <div 
-              style={{cursor: 'pointer'}} 
+    return (<TrashIconWrapper
+              style={{cursor: 'pointer'}}
               onClick={() => { removeSong(row.index) }}>
-            <img src={cell} height={20}/>
-          </div> ;
+            <Trash2 className='delete-button'/>
+          </TrashIconWrapper>);
   }
 
   const columns = [{
