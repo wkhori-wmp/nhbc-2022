@@ -28,7 +28,7 @@ const Home = () => {
       <form>
         <label>
           Username:
-          <input type="text" value={userId} name="name" onChange={handleUserChange} />
+          <input style={{marginLeft: '10px'}}type="text" value={userId} name="name" onChange={handleUserChange} />
         </label>
       </form>
       <MainImage>
