@@ -34,7 +34,7 @@ const Playlist = () => {
   const getPlaylist = () => {
     getItems().then(function (result) {
       setmySongsArr(
-        Object.keys(result).map((item) => ({ ...result[item], id: item }))
+        Object.keys(result).map((item, index) => ({ ...result[item], id: item, index: index + 1 }))
       );
     });
   }
@@ -58,15 +58,16 @@ const Playlist = () => {
     getPlaylist();
   }
 
-  const removeSong = (index) => {
-    let newSongArr = mySongsArr.filter(a => a.index !== index)
+  const removeSong = (id) => {
+    handleDelete(id);
+    let newSongArr = mySongsArr.filter(a => a.id !== id)
     setmySongsArr(newSongArr)
   }
 
   function imageFormatter(cell, row) {
     return (<TrashIconWrapper
               style={{cursor: 'pointer'}}
-              onClick={() => { removeSong(row.index) }}>
+              onClick={() => { removeSong(row.id) }}>
             <Trash2 className='delete-button'/>
           </TrashIconWrapper>);
   }
