@@ -21,6 +21,7 @@ export const breakpoints = (
 };
 
 export const PlaylistWrapper = styled.div`
+  flex-direction: column;
   margin: 0 auto;
   max-width: 800px;
   ${breakpoints("margin-left", "%", [
@@ -32,7 +33,3 @@ export const PlaylistWrapper = styled.div`
     { 600: 80 },
   ])};
   `;
-
-  // margin-left: auto;
-  // margin-right: auto;
-  

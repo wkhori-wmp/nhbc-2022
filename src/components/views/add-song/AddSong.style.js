@@ -42,10 +42,16 @@ export const AddSongForm = styled.form`
 export const FormInputField = styled.input`
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 8px;
   box-sizing: border-box;
-`;
+  border-radius: 10px;
+  border-color: #bfbfbf;
+  margin-bottom: 20px;
+  border-style: solid;
+  border-width: 0.5px;
+  `;
 
 export const FormTitle = styled.h1`
 font-color: blue;
-`
+margin-bottom: 20px;
+`;

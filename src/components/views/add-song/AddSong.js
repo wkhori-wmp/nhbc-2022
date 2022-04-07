@@ -2,6 +2,7 @@ import { createItem } from '../../../firebase/firebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AddSongWrapper, AddSongForm, FormInputField, FormTitle } from './AddSong.style';
+import { Button } from 'react-bootstrap';
 
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
@@ -90,8 +91,14 @@ const AddSong = () => {
             defaultValue={values.ytLink} 
             required={true} 
             onChange={handleInputChange} />
-        <input type="submit" value="Add Song" />
-      </AddSongForm>
+        <Button 
+          variant="primary"
+          type="submit"
+          style={{ margin: "0 auto", }}
+        >
+          Add song
+        </Button>
+        </AddSongForm>
     </AddSongWrapper>
   );
 };

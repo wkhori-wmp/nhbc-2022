@@ -121,7 +121,9 @@ const Playlist = () => {
           columns={ columns }
           expandRow={ expandRow }
       />
-      <CSVLink data={mySongsArr} headers={csvHeaders}>Export your playlist to a CSV</CSVLink>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <CSVLink data={mySongsArr} headers={csvHeaders}>Export your playlist to a CSV</CSVLink>
+      </div>
     </PlaylistWrapper>
   );
 };
