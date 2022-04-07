@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from "styled-components/macro";
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -27,4 +27,4 @@ export const DescriptionAndImage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;

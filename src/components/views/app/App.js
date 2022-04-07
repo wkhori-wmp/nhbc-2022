@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavigationContainer } from './App.style';
-import NavBar from '../../core/nav-bar';
-import { Route, Switch } from 'react-router-dom';
-import routes from '../../../routes/routes';
+import React from "react";
+import { NavigationContainer } from "./App.style";
+import NavBar from "../../core/nav-bar";
+import { Route, Switch } from "react-router-dom";
+import routes from "../../../routes/routes";
 
 const App = () => {
   const renderedRoutes = routes.map((route) => (
@@ -16,7 +16,7 @@ const App = () => {
   // The NavBar component will live at the top of every page
   // The switch renders the appropriate component (page) for the appropriate path
   return (
-    <div className='App'>
+    <div className="App">
       <NavigationContainer>
         <NavBar />
         <Switch>{renderedRoutes}</Switch>

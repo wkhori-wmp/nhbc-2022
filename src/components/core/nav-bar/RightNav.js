@@ -1,20 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const HamburgerLinks = styled.ul`
   list-style: none;
   display: flex;
   flex-flow: row nowrap;
   li {
-    color: #FFF;
+    color: #fff;
     padding: 18px 10px;
   }
   @media (max-width: 450px) {
     flex-flow: column nowrap;
     background-color: #000;
     position: fixed;
-    transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(100%)'};
+    transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
     top: 0;
     right: 0;
     height: 100vh;
@@ -26,24 +26,18 @@ const HamburgerLinks = styled.ul`
 
 const RightNav = ({ open, toggleMenu }) => {
   return (
-    <HamburgerLinks open={open}>        
+    <HamburgerLinks open={open}>
       <li onClick={toggleMenu}>
-        <Link to="/">
-          Home
-        </Link>
+        <Link to="/">Home</Link>
       </li>
       <li onClick={toggleMenu}>
-      <Link to="/playlist">
-          Playlist
-        </Link>
+        <Link to="/playlist">Playlist</Link>
       </li>
       <li onClick={toggleMenu}>
-        <Link to="/add-song">
-          Add Song
-        </Link>
+        <Link to="/add-song">Add Song</Link>
       </li>
     </HamburgerLinks>
-  )
-}
+  );
+};
 
-export default RightNav
+export default RightNav;
