@@ -22,7 +22,6 @@ const TrashIconWrapper = styled.div`
 `;
 
 const Playlist = () => {
-  // const classes = useStyles();
   let [mySongsArr, setmySongsArr] = useState([]);
 
   const getPlaylist = () => {
