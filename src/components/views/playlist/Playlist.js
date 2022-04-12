@@ -28,7 +28,11 @@ const Playlist = () => {
     getItems().then(function (result) {
       if (result) {
         setmySongsArr(
-          Object.keys(result).map((item, index) => ({ ...result[item], id: item, index: index + 1 }))
+          Object.keys(result).map((item, index) => ({
+            ...result[item],
+            id: item,
+            index: index + 1,
+          }))
         );
       } else {
         setmySongsArr([]);
@@ -63,16 +67,21 @@ const Playlist = () => {
 
   const removeSong = (id) => {
     handleDelete(id);
-    let newSongArr = mySongsArr.filter(a => a.id !== id)
-    setmySongsArr(newSongArr)
-  }
+    let newSongArr = mySongsArr.filter((a) => a.id !== id);
+    setmySongsArr(newSongArr);
+  };
 
   function imageFormatter(cell, row) {
-    return (<TrashIconWrapper
-              style={{cursor: 'pointer'}}
-              onClick={() => { removeSong(row.id) }}>
-            <Trash2 className='delete-button'/>
-          </TrashIconWrapper>);
+    return (
+      <TrashIconWrapper
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          removeSong(row.id);
+        }}
+      >
+        <Trash2 className="delete-button" />
+      </TrashIconWrapper>
+    );
   }
 
   const columns = [

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'; 
+import styled, { css } from "styled-components";
 
 export const breakpoints = (
   cssProp = "padding", // the CSS property to apply to the breakpoints
@@ -21,18 +21,9 @@ export const breakpoints = (
 };
 
 export const PlaylistWrapper = styled.div`
+  flex-direction: column;
   margin: 0 auto;
   max-width: 800px;
-  ${breakpoints("margin-left", "%", [
-    { 2000: 25 },
-    { 600: 10 },
-  ])};
-  ${breakpoints("width", "%", [
-    { 2000: 50 },
-    { 600: 80 },
-  ])};
-  `;
-
-  // margin-left: auto;
-  // margin-right: auto;
-  
+  ${breakpoints("margin-left", "%", [{ 2000: 25 }, { 600: 10 }])};
+  ${breakpoints("width", "%", [{ 2000: 50 }, { 600: 80 }])};
+`;

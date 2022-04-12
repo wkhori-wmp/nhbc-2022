@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const breakpoints = (
   cssProp = "padding", // the CSS property to apply to the breakpoints
@@ -23,14 +23,8 @@ export const breakpoints = (
 export const AddSongWrapper = styled.div`
   margin: 0 auto;
   max-width: 800px;
-  ${breakpoints("margin-left", "%", [
-    { 2000: 25 },
-    { 600: 10 },
-  ])};
-  ${breakpoints("width", "%", [
-    { 2000: 50 },
-    { 600: 80 },
-  ])};
+  ${breakpoints("margin-left", "%", [{ 2000: 25 }, { 600: 10 }])};
+  ${breakpoints("width", "%", [{ 2000: 50 }, { 600: 80 }])};
 `;
 
 export const AddSongForm = styled.form`
@@ -42,10 +36,16 @@ export const AddSongForm = styled.form`
 export const FormInputField = styled.input`
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 8px;
   box-sizing: border-box;
+  border-radius: 10px;
+  border-color: #bfbfbf;
+  margin-bottom: 20px;
+  border-style: solid;
+  border-width: 0.5px;
 `;
 
 export const FormTitle = styled.h1`
-font-color: blue;
-`
+  font-color: blue;
+  margin-bottom: 20px;
+`;
