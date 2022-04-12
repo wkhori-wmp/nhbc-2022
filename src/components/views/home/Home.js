@@ -7,7 +7,7 @@ import {
   DescriptionAndImage,
 } from './Home.style';
 
-import { getUsername, setUsermame } from '../../../firebase/firebase';
+import { getUsername, setUsername } from '../../../firebase/firebase';
 
 const Home = () => {
 
@@ -15,7 +15,7 @@ const Home = () => {
 
   const handleUserChange = (event) => {
     setUserId(event.target.value);
-    setUsermame(event.target.value);
+    setUsername(event.target.value);
   }
 
   return (
@@ -28,7 +28,7 @@ const Home = () => {
       <form>
         <label>
           Username:
-          <input style={{marginLeft: '10px'}}type="text" value={userId} name="name" onChange={handleUserChange} />
+          <input style={{marginLeft: '10px'}} type="text" value={userId} name="name" onChange={handleUserChange} />
         </label>
       </form>
       <MainImage>

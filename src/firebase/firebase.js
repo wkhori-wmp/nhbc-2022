@@ -22,7 +22,7 @@ export function getUsername(){
   return myUsername;
 }
 
-export function setUsermame(id){
+export function setUsername(id){
   myUsername = id;
 }
 
