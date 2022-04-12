@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   PageWrapper,
@@ -7,7 +7,17 @@ import {
   DescriptionAndImage,
 } from './Home.style';
 
+import { getUsername, setUsername } from '../../../firebase/firebase';
+
 const Home = () => {
+
+  const [ userId, setUserId ] = useState(getUsername());
+
+  const handleUserChange = (event) => {
+    setUserId(event.target.value);
+    setUsername(event.target.value);
+  }
+
   return (
     <PageWrapper>
       <DescriptionAndImage>
@@ -15,6 +25,12 @@ const Home = () => {
         Welcome to WMP Playlist! You can search through song recommendations and
         add your own!
       </Description>
+      <form>
+        <label>
+          Username:
+          <input style={{marginLeft: '10px'}} type="text" value={userId} name="name" onChange={handleUserChange} />
+        </label>
+      </form>
       <MainImage>
         <img
         width={'80%'}

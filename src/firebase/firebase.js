@@ -16,7 +16,15 @@ const app = firebase.initializeApp(config);
 const db = firebase.database(app);
 
 //export default firebase;
-var myUserId = '321';
+var myUsername = '321';
+
+export function getUsername(){
+  return myUsername;
+}
+
+export function setUsername(id){
+  myUsername = id;
+}
 
 /**
  * Function that creates a new playlistItem in firebase
@@ -32,7 +40,7 @@ var myUserId = '321';
  */
 export function createItem(item) {
   const dbRef = db.ref(
-    'users/' + myUserId + '/playlist/song-' + Math.round(Math.random() * 1000)
+    'users/' + myUsername + '/playlist/song-' + Math.round(Math.random() * 1000)
   );
   return dbRef.set({
     ...item,
@@ -52,7 +60,7 @@ export function createItem(item) {
  * @returns {Promise}
  */
 export function getItems() {
-  var dbRef = db.ref('users/' + myUserId + '/playlist');
+  var dbRef = db.ref('users/' + myUsername + '/playlist');
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);
@@ -74,6 +82,6 @@ export function getItems() {
  * @returns {Promise}
  */
 export function deleteItem(songId) {
-  var dbRef = db.ref('users/' + myUserId + '/playlist/' + songId);
+  var dbRef = db.ref('users/' + myUsername + '/playlist/' + songId);
   return dbRef.remove();
 }
