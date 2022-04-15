@@ -34,7 +34,7 @@ const AddSong = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // e.preventDefault prevents the default event action
     // in this case for a submit button it stops the page from reloading
     e.preventDefault();
@@ -46,9 +46,8 @@ const AddSong = () => {
       ytLink: e.target[3].value,
     };
 
-    createItem(playlistItem).then(() => {
-      history.push("/playlist");
-    });
+    await createItem(playlistItem);
+    history.push("/playlist");
   };
 
   return (

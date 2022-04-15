@@ -24,20 +24,19 @@ const TrashIconWrapper = styled.div`
 const Playlist = () => {
   let [mySongsArr, setmySongsArr] = useState([]);
 
-  const getPlaylist = () => {
-    getItems().then(function (result) {
-      if (result) {
-        setmySongsArr(
-          Object.keys(result).map((item, index) => ({
-            ...result[item],
-            id: item,
-            index: index + 1,
-          }))
-        );
-      } else {
-        setmySongsArr([]);
-      }
-    });
+  const getPlaylist = async () => {
+    const result = await getItems();
+    if (result) {
+      setmySongsArr(
+        Object.keys(result).map((item, index) => ({
+          ...result[item],
+          id: item,
+          index: index + 1,
+        }))
+      );
+    } else {
+      setmySongsArr([]);
+    }
   };
 
   const expandRow = {
