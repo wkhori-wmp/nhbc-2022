@@ -27,10 +27,9 @@ const AddSong = () => {
     },
   });
 
-  const onSubmit = (formData) => {
-    createItem(formData).then(() => {
-      history.push("/playlist");
-    });
+  const onSubmit = async (formData) => {
+    await createItem(formData);
+    history.push("/playlist");
   };
 
   const translationObj = translations.addSong;
