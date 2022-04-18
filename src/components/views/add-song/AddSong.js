@@ -41,33 +41,35 @@ const AddSong = () => {
       <FormTitle>Add Song</FormTitle>
       <FormProvider register={register}>
         <AddSongForm onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor={translationObj.inputs.title.label}>Title:</label>
           <FormInputField
-            name="title"
+            name={translationObj.inputs.title.label}
             errors={errors}
             type="text"
             placeholder={translationObj.inputs.title.placeholder}
             validations={validationObj.title}
           />
-          <label htmlFor="artist">Artist:</label>
+          <label htmlFor={translationObj.inputs.artist.label}>Artist:</label>
           <FormInputField
-            name="artist"
+            name={translationObj.inputs.artist.label}
             type="text"
             errors={errors}
             placeholder={translationObj.inputs.artist.placeholder}
             validations={validationObj.artist}
           />
-          <label htmlFor="album">Album:</label>
+          <label htmlFor={translationObj.inputs.album.label}>Album:</label>
           <FormInputField
-            name="album"
+            name={translationObj.inputs.album.label}
             type="text"
             errors={errors}
             placeholder={translationObj.inputs.album.placeholder}
             validations={validationObj.album}
           />
-          <label htmlFor="ytlink">YouTube Link:</label>
+          <label htmlFor={translationObj.inputs.ytLink.label}>
+            YouTube Link:
+          </label>
           <FormInputField
-            name="ytLink"
+            name={translationObj.inputs.ytLink.label}
             type="text"
             errors={errors}
             placeholder={translationObj.inputs.ytLink.placeholder}
