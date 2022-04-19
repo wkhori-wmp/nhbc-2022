@@ -1,3 +1,7 @@
 import styled from "styled-components";
 
-export const NavigationContainer = styled.div``;
+export const AppWrapper = styled.div`
+  background: #efefef;
+  height: 100vh;
+  width: 100vw;
+`;

@@ -1,7 +1,12 @@
 import { createItem } from "../../../firebase/firebase";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { AddSongWrapper, AddSongForm, FormTitle } from "./AddSong.style";
+import {
+  AddSongWrapper,
+  AddSongForm,
+  FormTitle,
+  YoutubeIcon,
+} from "./AddSong.style";
 import { Button } from "react-bootstrap";
 import { FormProvider, useForm } from "react-hook-form";
 import FormInputField from "../../core/forms/FormInputField";
@@ -32,47 +37,65 @@ const AddSong = () => {
     history.push("/playlist");
   };
 
-  const translationObj = translations.addSong;
-  const validationObj = validations.addSong;
+  const {
+    addSong: {
+      inputs: { title, artist, album, ytLink },
+    },
+  } = translations;
+  const {
+    addSong: {
+      titleFieldValidation,
+      artistFieldValidation,
+      albumFieldValidation,
+      ytLinkFieldValidation,
+    },
+  } = validations;
 
   return (
     <AddSongWrapper>
       <FormTitle>Add Song</FormTitle>
       <FormProvider register={register}>
         <AddSongForm onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor={translationObj.inputs.title.label}>Title:</label>
+          <label htmlFor={title.label}>Title:</label>
           <FormInputField
-            name={translationObj.inputs.title.label}
+            name={title.label}
             errors={errors}
             type="text"
-            placeholder={translationObj.inputs.title.placeholder}
-            validations={validationObj.title}
+            placeholder={title.placeholder}
+            validations={titleFieldValidation}
           />
-          <label htmlFor={translationObj.inputs.artist.label}>Artist:</label>
+          <label htmlFor={artist.label}>Artist:</label>
           <FormInputField
-            name={translationObj.inputs.artist.label}
+            name={artist.label}
             type="text"
             errors={errors}
-            placeholder={translationObj.inputs.artist.placeholder}
-            validations={validationObj.artist}
+            placeholder={artist.placeholder}
+            validations={artistFieldValidation}
           />
-          <label htmlFor={translationObj.inputs.album.label}>Album:</label>
+          <label htmlFor={album.label}>Album:</label>
           <FormInputField
-            name={translationObj.inputs.album.label}
+            name={album.label}
             type="text"
             errors={errors}
-            placeholder={translationObj.inputs.album.placeholder}
-            validations={validationObj.album}
+            placeholder={album.placeholder}
+            validations={albumFieldValidation}
           />
-          <label htmlFor={translationObj.inputs.ytLink.label}>
+          <label htmlFor={ytLink.label}>
             YouTube Link:
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="http://www.youtube.com"
+            >
+              <YoutubeIcon src="/youtube.png" />
+            </a>
           </label>
           <FormInputField
-            name={translationObj.inputs.ytLink.label}
+            name={ytLink.label}
             type="text"
             errors={errors}
-            placeholder={translationObj.inputs.ytLink.placeholder}
-            validations={validationObj.ytLink}
+            placeholder={ytLink.placeholder}
+            validations={ytLinkFieldValidation}
           />
           <Button variant="primary" type="submit" style={{ margin: "0 auto" }}>
             Add song

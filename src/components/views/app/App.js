@@ -1,5 +1,5 @@
 import React from "react";
-import { NavigationContainer } from "./App.style";
+import { AppWrapper } from "./App.style";
 import NavBar from "../../core/nav-bar";
 import { Route, Switch } from "react-router-dom";
 import routes from "../../../routes/routes";
@@ -17,10 +17,10 @@ const App = () => {
   // The switch renders the appropriate component (page) for the appropriate path
   return (
     <div className="App">
-      <NavigationContainer>
+      <AppWrapper>
         <NavBar />
         <Switch>{renderedRoutes}</Switch>
-      </NavigationContainer>
+      </AppWrapper>
     </div>
   );
 };

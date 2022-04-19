@@ -5,6 +5,7 @@ import { getItems, deleteItem } from "../../../firebase/firebase";
 import BootstrapTable from "react-bootstrap-table-next";
 import styled from "styled-components";
 import { Trash2 } from "react-feather";
+import FindPlaylist from "./FindPlaylist";
 
 const YoutubeVideo = styled.iframe`
   width: 560px;
@@ -22,7 +23,10 @@ const TrashIconWrapper = styled.div`
 `;
 
 const Playlist = () => {
-  let [mySongsArr, setmySongsArr] = useState([]);
+  const [mySongsArr, setmySongsArr] = useState([]);
+  useEffect(() => {
+    getPlaylist();
+  }, []);
 
   const getPlaylist = async () => {
     const result = await getItems();
@@ -55,9 +59,6 @@ const Playlist = () => {
 
   // Use effect hook with an empty dependency array [], will run only on mounted
   // This means it will only one the code it contains one time
-  useEffect(() => {
-    getPlaylist();
-  }, []);
 
   const handleDelete = (id) => {
     deleteItem(id);
@@ -119,26 +120,47 @@ const Playlist = () => {
 
   const emptyDataMessage = () => {
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "600px",
+        }}
+      >
         No data to display... go add some songs to the playlist!
       </div>
     );
   };
 
+  // can add a loading msg or icon here if we want
+  // if (mySongsArr?.length < 1) return <></>;
   return (
     <PlaylistWrapper>
-      <h1>Playlist</h1>
-      <BootstrapTable
-        style={{ cursor: "pointer" }}
-        noDataIndication={emptyDataMessage}
-        keyField="index"
-        data={mySongsArr}
-        columns={columns}
-        expandRow={expandRow}
-      />
-      <CSVLink data={mySongsArr} headers={csvHeaders}>
-        Export your playlist to a CSV
-      </CSVLink>
+      {mySongsArr?.length < 1 ? (
+        <FindPlaylist getPlaylist={() => getPlaylist()}></FindPlaylist>
+      ) : (
+        <>
+          <h1>Playlist</h1>
+          <BootstrapTable
+            keyField="index"
+            data={mySongsArr}
+            columns={columns}
+            expandRow={expandRow}
+          />
+          <CSVLink data={mySongsArr} headers={csvHeaders}>
+            Export your playlist to a CSV
+          </CSVLink>
+          <button
+            onClick={() => {
+              setmySongsArr([]);
+            }}
+            style={{ display: "block", marginTop: "20px" }}
+          >
+            Go Back
+          </button>
+        </>
+      )}
     </PlaylistWrapper>
   );
 };
