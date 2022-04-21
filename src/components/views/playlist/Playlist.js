@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { PlaylistWrapper } from "./Playlist.style";
-import { getItems, deleteItem } from "../../../firebase/firebase";
+import {
+  getItems,
+  deleteItem,
+  setUsername,
+  getUsername,
+} from "../../../firebase/firebase";
 import BootstrapTable from "react-bootstrap-table-next";
 import styled from "styled-components";
 import { Trash2 } from "react-feather";
@@ -27,6 +32,8 @@ const Playlist = () => {
   useEffect(() => {
     getPlaylist();
   }, []);
+
+  const username = getUsername();
 
   const getPlaylist = async () => {
     const result = await getItems();
@@ -141,7 +148,7 @@ const Playlist = () => {
         <FindPlaylist getPlaylist={() => getPlaylist()}></FindPlaylist>
       ) : (
         <>
-          <h1>Playlist</h1>
+          <h1>{username}</h1>
           <BootstrapTable
             keyField="index"
             data={mySongsArr}
@@ -154,6 +161,7 @@ const Playlist = () => {
           <button
             onClick={() => {
               setmySongsArr([]);
+              setUsername("");
             }}
             style={{ display: "block", marginTop: "20px" }}
           >

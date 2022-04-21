@@ -85,3 +85,26 @@ export function deleteItem(songId) {
   var dbRef = db.ref("users/" + myUsername + "/playlist/" + songId);
   return dbRef.remove();
 }
+
+/**
+ * Gets all playLists in firebase
+ *
+ * Example Usage
+ *  getPlaylists().then((querySnapshot) => {
+ *       querySnapshot.forEach(function(response) {
+ *           console.log(response.id, " => ", response.data());
+ *       });
+ *   })
+ *
+ * @returns {Promise}
+ */
+export function getPlaylists() {
+  var dbRef = db.ref("users");
+
+  return new Promise((resolve, reject) => {
+    const onError = (error) => reject(error);
+    const onData = (snap) => resolve(snap.val());
+
+    dbRef.on("value", onData, onError);
+  });
+}

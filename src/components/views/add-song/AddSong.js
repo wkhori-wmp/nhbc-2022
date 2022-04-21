@@ -1,4 +1,4 @@
-import { createItem } from "../../../firebase/firebase";
+import { createItem, getUsername } from "../../../firebase/firebase";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import {
@@ -16,6 +16,8 @@ import validations from "./config/validations";
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
   const history = useHistory();
+
+  const username = getUsername();
 
   // React Hook Form
   const {
@@ -50,6 +52,18 @@ const AddSong = () => {
       ytLinkFieldValidation,
     },
   } = validations;
+
+  // Early return if a playlist has not been created or selected
+  if (username === "") {
+    return (
+      <AddSongWrapper>
+        <FormTitle>Add Song</FormTitle>
+        <div style={{ margin: "20px 0" }}>
+          Create or select an existing playlist before adding a song.
+        </div>
+      </AddSongWrapper>
+    );
+  }
 
   return (
     <AddSongWrapper>
