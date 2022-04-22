@@ -1,28 +1,28 @@
 // src/firebase.js
-import firebase from 'firebase';
+import firebase from "firebase";
 
 const config = {
-  apiKey: 'AIzaSyBnh-zjogAw0dtOaHx8Q3HQznD_3OonBAs',
-  authDomain: 'wmp-playlist.firebaseapp.com',
-  databaseURL: 'https://wmp-playlist-default-rtdb.firebaseio.com',
-  projectId: 'wmp-playlist',
-  storageBucket: 'wmp-playlist.appspot.com',
-  messagingSenderId: '386302016384',
-  appId: '1:386302016384:web:98262e2355a4ba4d5a5f65',
-  measurementId: 'G-BS8L3EFT04',
+  apiKey: "AIzaSyBnh-zjogAw0dtOaHx8Q3HQznD_3OonBAs",
+  authDomain: "wmp-playlist.firebaseapp.com",
+  databaseURL: "https://wmp-playlist-default-rtdb.firebaseio.com",
+  projectId: "wmp-playlist",
+  storageBucket: "wmp-playlist.appspot.com",
+  messagingSenderId: "386302016384",
+  appId: "1:386302016384:web:98262e2355a4ba4d5a5f65",
+  measurementId: "G-BS8L3EFT04",
 };
 
 const app = firebase.initializeApp(config);
 const db = firebase.database(app);
 
 //export default firebase;
-var myUsername = '321';
+var myUsername = "";
 
-export function getUsername(){
+export function getUsername() {
   return myUsername;
 }
 
-export function setUsername(id){
+export function setUsername(id) {
   myUsername = id;
 }
 
@@ -40,7 +40,7 @@ export function setUsername(id){
  */
 export function createItem(item) {
   const dbRef = db.ref(
-    'users/' + myUsername + '/playlist/song-' + Math.round(Math.random() * 1000)
+    "users/" + myUsername + "/playlist/song-" + Math.round(Math.random() * 1000)
   );
   return dbRef.set({
     ...item,
@@ -60,13 +60,13 @@ export function createItem(item) {
  * @returns {Promise}
  */
 export function getItems() {
-  var dbRef = db.ref('users/' + myUsername + '/playlist');
+  var dbRef = db.ref("users/" + myUsername + "/playlist");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);
     const onData = (snap) => resolve(snap.val());
 
-    dbRef.on('value', onData, onError);
+    dbRef.on("value", onData, onError);
   });
 }
 
@@ -82,6 +82,29 @@ export function getItems() {
  * @returns {Promise}
  */
 export function deleteItem(songId) {
-  var dbRef = db.ref('users/' + myUsername + '/playlist/' + songId);
+  var dbRef = db.ref("users/" + myUsername + "/playlist/" + songId);
   return dbRef.remove();
+}
+
+/**
+ * Gets all playLists in firebase
+ *
+ * Example Usage
+ *  getPlaylists().then((querySnapshot) => {
+ *       querySnapshot.forEach(function(response) {
+ *           console.log(response.id, " => ", response.data());
+ *       });
+ *   })
+ *
+ * @returns {Promise}
+ */
+export function getPlaylists() {
+  var dbRef = db.ref("users");
+
+  return new Promise((resolve, reject) => {
+    const onError = (error) => reject(error);
+    const onData = (snap) => resolve(snap.val());
+
+    dbRef.on("value", onData, onError);
+  });
 }

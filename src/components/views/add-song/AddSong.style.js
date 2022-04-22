@@ -34,6 +34,11 @@ export const AddSongForm = styled.form`
 `;
 
 export const FormTitle = styled.h1`
-  font-color: blue;
   margin-bottom: 20px;
+`;
+
+export const YoutubeIcon = styled.img`
+  max-width: 30px;
+  max-height: 30px;
+  margin-left: 5px;
 `;

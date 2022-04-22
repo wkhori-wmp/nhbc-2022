@@ -7,12 +7,16 @@ const HamburgerLinks = styled.ul`
   display: flex;
   flex-flow: row nowrap;
   li {
-    color: #fff;
-    padding: 18px 10px;
+    padding: 10px 5px;
+    a {
+      color: #06253c;
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
   @media (max-width: 450px) {
     flex-flow: column nowrap;
-    background-color: #000;
+    background-color: #909590;
     position: fixed;
     transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
     top: 0;

@@ -5,11 +5,11 @@ const StyledInput = styled.input`
   width: 100%;
   padding: 12px 20px;
   margin: 8px 8px;
-  box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 5px;
   border-color: #bfbfbf;
   border-style: solid;
   border-width: 0.5px;
+  background-color: #fdb515;
 `;
 
 const StyledErrorMessage = styled.span`

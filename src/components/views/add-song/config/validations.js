@@ -1,9 +1,9 @@
 export const validations = {
   addSong: {
-    title: { required: "This field is required" },
-    artist: { required: "This field is required" },
-    album: { required: "This field is required" },
-    ytLink: {
+    titleFieldValidation: { required: "This field is required" },
+    artistFieldValidation: { required: "This field is required" },
+    albumFieldValidation: { required: "This field is required" },
+    ytLinkFieldValidation: {
       required: "This field is required",
       pattern: {
         value: /^https:\/\/www.youtube.com\/watch\?v=/,
