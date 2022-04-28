@@ -1,4 +1,10 @@
-import { createItem, getUsername } from "../../../firebase/firebase";
+import {
+  createItem,
+  getUsername,
+  getUUID,
+  createItemAndUUID,
+  setUUID,
+} from "../../../firebase/firebase";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import {
@@ -12,11 +18,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormInputField from "../../core/forms/FormInputField";
 import translations from "./config/translations";
 import validations from "./config/validations";
+import { useLocation } from "react-router-dom";
 
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
   const history = useHistory();
-
+  const location = useLocation();
+  const uuid = getUUID();
   const username = getUsername();
 
   // React Hook Form
@@ -36,6 +44,11 @@ const AddSong = () => {
 
   const onSubmit = async (formData) => {
     await createItem(formData);
+    if (location.state === undefined) {
+      console.log("location state undefined");
+    } else {
+      await setUUID(location.state.uuid);
+    }
     history.push("/playlist");
   };
 
@@ -67,7 +80,7 @@ const AddSong = () => {
 
   return (
     <AddSongWrapper>
-      <FormTitle>Add Song</FormTitle>
+      <FormTitle>Add song for {username}</FormTitle>
       <FormProvider register={register}>
         <AddSongForm onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor={title.label}>Title:</label>

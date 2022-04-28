@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { setUsername } from "../../../firebase/firebase";
 
 const HamburgerLinks = styled.ul`
   list-style: none;
@@ -29,13 +30,23 @@ const HamburgerLinks = styled.ul`
 `;
 
 const RightNav = ({ open, toggleMenu }) => {
+  const history = useHistory();
+
   return (
     <HamburgerLinks open={open}>
       <li onClick={toggleMenu}>
         <Link to="/">Home</Link>
       </li>
       <li onClick={toggleMenu}>
-        <Link to="/playlist">Playlist</Link>
+        <Link
+          to="/playlist"
+          onClick={() => {
+            history.push("/playlist");
+            setUsername("");
+          }}
+        >
+          Playlist
+        </Link>
       </li>
       <li onClick={toggleMenu}>
         <Link to="/add-song">Add Song</Link>

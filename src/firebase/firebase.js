@@ -47,6 +47,11 @@ export function createItem(item) {
   });
 }
 
+export function setUUID(uuid) {
+  const dbRef = db.ref("users/" + myUsername + "/uuid");
+  return dbRef.set(uuid);
+}
+
 /**
  * Gets all playList items in firebase
  *
@@ -70,6 +75,17 @@ export function getItems() {
   });
 }
 
+export function getUUID() {
+  var dbRef = db.ref("users/" + myUsername + "/uuid");
+
+  return new Promise((resolve, reject) => {
+    const onError = (error) => reject(error);
+    const onData = (snap) => resolve(snap.val());
+
+    dbRef.on("value", onData, onError);
+  });
+}
+
 /**
  * Deletes a playlist item in firebase
  *
@@ -83,6 +99,11 @@ export function getItems() {
  */
 export function deleteItem(songId) {
   var dbRef = db.ref("users/" + myUsername + "/playlist/" + songId);
+  return dbRef.remove();
+}
+
+export function deletePlaylist(username) {
+  var dbRef = db.ref("users/" + username);
   return dbRef.remove();
 }
 

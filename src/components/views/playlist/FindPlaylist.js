@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  getUsername,
-  setUsername,
-  getPlaylists,
-} from "../../../firebase/firebase";
+import { v1 as uuidv1 } from "uuid";
+import { setUsername, getPlaylists } from "../../../firebase/firebase";
 import styled from "styled-components";
 import PlaylistList from "./PlaylistList";
-import { Spinner } from "react-bootstrap";
 import { CircularProgress } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -21,37 +18,57 @@ const LoadingContainer = styled.div`
 `;
 
 const FindPlaylist = ({ getPlaylist }) => {
-  const [userId, setUserId] = useState(getUsername());
+  const history = useHistory();
+  const [userId, setUserId] = useState("");
+  const id = uuidv1();
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Load playlists from firebase on mount
   useEffect(() => {
-    getPlaylists()
-      .then((playlists) => {
-        const data = Object.keys(playlists).map((playlistName) => ({
-          name: playlistName,
-          songs: playlists[playlistName].playlist,
-          songCount: Object.keys(playlists[playlistName].playlist).length,
-        }));
-        setPlaylists(data);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setUsername("");
+    getAllPlaylists();
   }, []);
+
+  const getAllPlaylists = async () => {
+    const result = await getPlaylists();
+    console.log(result);
+    if (result) {
+      setPlaylists(
+        Object.keys(result).map((playlistName) => ({
+          name: playlistName,
+          uuid: result[playlistName].uuid,
+          songs: playlistName.playlist,
+          songCount: Object.keys(result[playlistName].playlist).length,
+        }))
+      );
+      console.log(playlists);
+      setLoading(false);
+    } else {
+      setPlaylists([]);
+    }
+  };
 
   const handlePlaylistChange = (event) => {
     setUserId(event.target.value);
   };
 
   const findPlaylist = () => {
-    setUsername(userId);
-    getPlaylist();
+    console.log(playlists);
+    if (playlists.filter((p) => p.name === userId).length > 0) {
+      alert("A playlist with that name already exists");
+    } else {
+      setUsername(userId);
+      getPlaylist();
+      console.log(id);
+      history.push("/add-song", { uuid: id });
+    }
   };
 
-  const handlePlaylistSelection = (username) => {
+  const handlePlaylistSelection = (username, uuid) => {
     setUsername(username);
+    console.log(uuid);
+    history.push(`/playlist/${uuid || uuid.uuid}`);
     getPlaylist();
   };
 

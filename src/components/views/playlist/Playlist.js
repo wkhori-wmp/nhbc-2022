@@ -4,6 +4,8 @@ import { PlaylistWrapper } from "./Playlist.style";
 import {
   getItems,
   deleteItem,
+  deletePlaylist,
+  getPlaylists,
   setUsername,
   getUsername,
 } from "../../../firebase/firebase";
@@ -11,6 +13,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import styled from "styled-components";
 import { Trash2 } from "react-feather";
 import FindPlaylist from "./FindPlaylist";
+import { useHistory, useParams } from "react-router-dom";
 
 const YoutubeVideo = styled.iframe`
   width: 560px;
@@ -28,17 +31,25 @@ const TrashIconWrapper = styled.div`
 `;
 
 const Playlist = () => {
-  const [mySongsArr, setmySongsArr] = useState([]);
+  const history = useHistory();
+  const { playlistId } = useParams();
+  const [mySongsArr, setMySongsArr] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+  const username = getUsername();
+
+  console.log(playlistId, username);
+
   useEffect(() => {
     getPlaylist();
+    if (playlistId) {
+      getAllPlaylists();
+    }
   }, []);
-
-  const username = getUsername();
 
   const getPlaylist = async () => {
     const result = await getItems();
-    if (result) {
-      setmySongsArr(
+    if (result && Object.keys(result).length > 0) {
+      setMySongsArr(
         Object.keys(result).map((item, index) => ({
           ...result[item],
           id: item,
@@ -46,7 +57,23 @@ const Playlist = () => {
         }))
       );
     } else {
-      setmySongsArr([]);
+      setMySongsArr([]);
+    }
+  };
+
+  const getAllPlaylists = async () => {
+    const result = await getPlaylists();
+    if (result) {
+      setPlaylists(
+        Object.keys(result).map((playlistName) => ({
+          name: playlistName,
+          uuid: result[playlistName].uuid,
+          songs: Object.values(result[playlistName].playlist),
+        }))
+      );
+      // setMySongsArr(playlists.filter((p) => p.uuid === playlistId).songs);
+    } else {
+      setPlaylists([]);
     }
   };
 
@@ -72,10 +99,14 @@ const Playlist = () => {
     getPlaylist();
   };
 
-  const removeSong = (id) => {
+  const removeSong = async (id) => {
     handleDelete(id);
     let newSongArr = mySongsArr.filter((a) => a.id !== id);
-    setmySongsArr(newSongArr);
+    setMySongsArr(newSongArr);
+    if (newSongArr.length === 0) {
+      await deletePlaylist(username);
+      history.push("/playlist");
+    }
   };
 
   function imageFormatter(cell, row) {
@@ -125,26 +156,26 @@ const Playlist = () => {
     { label: "Album", key: "album" },
   ];
 
-  const emptyDataMessage = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "600px",
-        }}
-      >
-        No data to display... go add some songs to the playlist!
-      </div>
-    );
-  };
+  // const emptyDataMessage = () => {
+  //   return (
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         height: "600px",
+  //       }}
+  //     >
+  //       No data to display... go add some songs to the playlist!
+  //     </div>
+  //   );
+  // };
 
   // can add a loading msg or icon here if we want
   // if (mySongsArr?.length < 1) return <></>;
   return (
     <PlaylistWrapper>
-      {mySongsArr?.length < 1 ? (
+      {(mySongsArr?.length < 1 && !playlistId) || !username ? (
         <FindPlaylist getPlaylist={() => getPlaylist()}></FindPlaylist>
       ) : (
         <>
@@ -160,7 +191,8 @@ const Playlist = () => {
           </CSVLink>
           <button
             onClick={() => {
-              setmySongsArr([]);
+              history.push("/playlist");
+              setMySongsArr([]);
               setUsername("");
             }}
             style={{ display: "block", marginTop: "20px" }}
