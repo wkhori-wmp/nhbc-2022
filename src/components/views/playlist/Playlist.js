@@ -40,10 +40,9 @@ const Playlist = () => {
   console.log(playlistId, username);
 
   useEffect(() => {
+    console.log(mySongsArr.length < 1, playlistId, username);
     getPlaylist();
-    if (playlistId) {
-      getAllPlaylists();
-    }
+    //    getAllPlaylists();
   }, []);
 
   const getPlaylist = async () => {
@@ -61,20 +60,90 @@ const Playlist = () => {
     }
   };
 
+  // const test = [
+  //   {
+  //     name: "1234",
+  //     songs: [
+  //       {
+  //         album: "adsf",
+  //         artist: "asdf",
+  //         title: "asdf",
+  //         ytLink: "https://www.youtube.com/watch?v=SOTamWNgDKc",
+  //       },
+  //     ],
+  //     uuid: "dc85c1b0-c72a-11ec-bdb7-57c96c1c1b42",
+  //   },
+  //   {
+  //     name: "af",
+  //     songs: [
+  //       {
+  //         album: "f",
+  //         artist: "f",
+  //         title: "f",
+  //         ytLink: "https://www.youtube.com/watch?v=SOTamWNgDKc",
+  //       },
+  //       {
+  //         album: "asdfasdf",
+  //         artist: "asdfasd",
+  //         title: "asdfas",
+  //         ytLink: "https://www.youtube.com/watch?v=SOTamWNgDKc",
+  //       },
+  //       {
+  //         album: "adsfa",
+  //         artist: "asdf",
+  //         title: "qwef",
+  //         ytLink: "https://www.youtube.com/watch?v=SOTamWNgDKc",
+  //       },
+  //     ],
+  //     uuid: "cc6089d0-c72c-11ec-9e3d-d3c91d0a1c46",
+  //   },
+  //   {
+  //     name: "hello",
+  //     songs: [
+  //       {
+  //         album: "asdsd",
+  //         artist: "ads",
+  //         title: "123",
+  //         ytLink: "https://www.youtube.com/watch?v=SOTamWNgDKc",
+  //       },
+  //     ],
+  //     uuid: "8e15eca0-c72d-11ec-9e3d-d3c91d0a1c46",
+  //   },
+  //   {
+  //     name: "hello world",
+  //     songs: [
+  //       {
+  //         album: "go",
+  //         artist: "lets",
+  //         title: "yeah",
+  //         ytLink: "https://www.youtube.com/watch?v=SOTamWNgDKc",
+  //       },
+  //     ],
+  //     uuid: "03940aa0-c744-11ec-a4a7-755c725227e1",
+  //   },
+  // ];
+
   const getAllPlaylists = async () => {
     const result = await getPlaylists();
     if (result) {
+      console.log(result, username, playlistId);
       setPlaylists(
-        Object.keys(result).map((playlistName) => ({
-          name: playlistName,
-          uuid: result[playlistName].uuid,
-          songs: Object.values(result[playlistName].playlist),
+        Object.keys(result).map((pL) => ({
+          name: pL,
+          uuid: result[pL].uuid,
+          songs: Object.values(result[pL].playlist),
         }))
       );
-      // setMySongsArr(playlists.filter((p) => p.uuid === playlistId).songs);
-    } else {
-      setPlaylists([]);
     }
+    if (playlists) {
+      //  setMySongsArr(playlists.filter((p) => p.uuid === playlistId)[0]["songs"]);
+      setUsername(playlists.filter((p) => p.uuid === playlistId)[0]["name"]);
+    }
+    // setMySongsArr(playlists.filter((p) => p.uuid === playlistId)[0]["songs"]);
+    // if (!username && playlistId) {
+    //   setUsername(playlists.filter((p) => p.uuid === playlistId)[0].name);
+    //   setMySongsArr(playlists.filter((p) => p.uuid === playlistId)[0].songs);
+    // }
   };
 
   const expandRow = {
@@ -105,6 +174,7 @@ const Playlist = () => {
     setMySongsArr(newSongArr);
     if (newSongArr.length === 0) {
       await deletePlaylist(username);
+      console.log("gettning here or nah?");
       history.push("/playlist");
     }
   };
@@ -175,7 +245,7 @@ const Playlist = () => {
   // if (mySongsArr?.length < 1) return <></>;
   return (
     <PlaylistWrapper>
-      {(mySongsArr?.length < 1 && !playlistId) || !username ? (
+      {mySongsArr.length < 1 || (!playlistId && !username) ? (
         <FindPlaylist getPlaylist={() => getPlaylist()}></FindPlaylist>
       ) : (
         <>

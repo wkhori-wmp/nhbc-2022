@@ -49,7 +49,14 @@ const RightNav = ({ open, toggleMenu }) => {
         </Link>
       </li>
       <li onClick={toggleMenu}>
-        <Link to="/add-song">Add Song</Link>
+        <Link
+          to="/add-song"
+          onClick={() => {
+            history.push("/add-song");
+          }}
+        >
+          Add Song
+        </Link>
       </li>
     </HamburgerLinks>
   );

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { v1 as uuidv1 } from "uuid";
 import { setUsername, getPlaylists, setUUID } from "../../../firebase/firebase";
 import styled from "styled-components";
-import PlaylistList from "./PlaylistList";
 import { CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import PlaylistList from "../playlist/PlaylistList";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 
-const FindPlaylist = ({ getPlaylist }) => {
+const AddSongToPlaylist = ({ getPlaylist }) => {
   const history = useHistory();
   const [userId, setUserId] = useState("");
   const id = uuidv1();
@@ -49,51 +49,15 @@ const FindPlaylist = ({ getPlaylist }) => {
     }
   };
 
-  const handlePlaylistChange = (event) => {
-    setUserId(event.target.value);
-  };
-
-  const findPlaylist = () => {
-    console.log(playlists);
-    if (playlists.filter((p) => p.name === userId).length > 0) {
-      alert("A playlist with that name already exists");
-    } else {
-      setUsername(userId);
-      getPlaylist();
-      console.log(id);
-      history.push(`/add-song/${id}`, { uuid: id });
-    }
-  };
-
   const handlePlaylistSelection = (username, uuid) => {
     setUsername(username);
     setUUID(uuid);
     console.log(uuid);
-    history.push(`/playlist/${uuid}`);
-    getPlaylist();
+    history.push(`/add-song/${uuid}`);
   };
 
   return (
     <FlexContainer>
-      <div>
-        <h1> Create a Playlist</h1>
-        <div style={{ margin: "20px 0" }}>
-          Enter the name of the playlist you'd like to create.
-        </div>
-        <label>
-          Playlist Name:
-          <input
-            style={{ marginLeft: "10px" }}
-            type="text"
-            value={userId}
-            name="name"
-            onChange={handlePlaylistChange}
-          />
-        </label>
-        <button onClick={findPlaylist} style={{ marginLeft: "30px" }}>
-          Create
-        </button>
-      </div>
       <h1> Existing Playlists</h1>
       {loading ? (
         <LoadingContainer>
@@ -109,4 +73,4 @@ const FindPlaylist = ({ getPlaylist }) => {
   );
 };
 
-export default FindPlaylist;
+export default AddSongToPlaylist;

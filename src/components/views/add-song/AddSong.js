@@ -19,6 +19,7 @@ import FormInputField from "../../core/forms/FormInputField";
 import translations from "./config/translations";
 import validations from "./config/validations";
 import { useLocation } from "react-router-dom";
+import AddSongToPlaylist from "./AddSongToPlaylist";
 
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
@@ -73,6 +74,7 @@ const AddSong = () => {
         <FormTitle>Add Song</FormTitle>
         <div style={{ margin: "20px 0" }}>
           Create or select an existing playlist before adding a song.
+          <AddSongToPlaylist />
         </div>
       </AddSongWrapper>
     );
