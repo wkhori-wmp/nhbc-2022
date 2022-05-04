@@ -104,7 +104,7 @@ const Playlist = () => {
 
   const removeSong = async (id) => {
     handleDelete(id);
-    let newSongArr = mySongsArr.filter((a) => a.id !== id);
+    const newSongArr = mySongsArr.filter((a) => a.index !== id);
     await setMySongsArr(newSongArr);
     if (newSongArr.length === 0) {
       await deletePlaylist(playlistName);
@@ -118,7 +118,7 @@ const Playlist = () => {
       <TrashIconWrapper
         style={{ cursor: "pointer" }}
         onClick={() => {
-          removeSong(row.id);
+          removeSong(row.index);
         }}
       >
         <Trash2 className="delete-button" />

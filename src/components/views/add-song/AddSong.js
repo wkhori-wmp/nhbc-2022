@@ -42,13 +42,13 @@ const AddSong = () => {
 
   useEffect(() => {
     if (username === "") {
-      getPlaylistName(playlistId);
+      getPlaylistNameByUUID(playlistId);
     }
     setLoading(false);
     console.log(username, playlistName);
   }, []);
 
-  const getPlaylistName = async (id) => {
+  const getPlaylistNameByUUID = async (id) => {
     const result = await getPlaylists();
     console.log(result);
     if (result && playlistId) {
@@ -77,6 +77,7 @@ const AddSong = () => {
       artist: "",
       album: "",
       ytLink: "",
+      index: Math.round(Math.random() * 1000),
     },
   });
 
