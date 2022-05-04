@@ -17,7 +17,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 
-const FindPlaylist = ({ getPlaylist }) => {
+const FindPlaylist = () => {
   const history = useHistory();
   const [userId, setUserId] = useState("");
   const id = uuidv1();
@@ -26,14 +26,16 @@ const FindPlaylist = ({ getPlaylist }) => {
 
   // Load playlists from firebase on mount
   useEffect(() => {
-    setUsername("");
+    setUserId("");
     getAllPlaylists();
   }, []);
+
+  console.log(userId);
 
   const getAllPlaylists = async () => {
     const result = await getPlaylists();
     console.log(result);
-    if (result) {
+    if (result && !userId) {
       setPlaylists(
         Object.keys(result).map((playlistName) => ({
           name: playlistName,
@@ -59,7 +61,6 @@ const FindPlaylist = ({ getPlaylist }) => {
       alert("A playlist with that name already exists");
     } else {
       setUsername(userId);
-      getPlaylist();
       console.log(id);
       history.push(`/add-song/${id}`, { uuid: id });
     }
@@ -70,7 +71,6 @@ const FindPlaylist = ({ getPlaylist }) => {
     setUUID(uuid);
     console.log(uuid);
     history.push(`/playlist/${uuid}`);
-    getPlaylist();
   };
 
   return (
