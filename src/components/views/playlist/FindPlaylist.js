@@ -5,6 +5,7 @@ import styled from "styled-components";
 import PlaylistList from "./PlaylistList";
 import { CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -30,11 +31,8 @@ const FindPlaylist = () => {
     getAllPlaylists();
   }, []);
 
-  console.log(userId);
-
   const getAllPlaylists = async () => {
     const result = await getPlaylists();
-    console.log(result);
     if (result && !userId) {
       setPlaylists(
         Object.keys(result).map((playlistName) => ({
@@ -44,7 +42,6 @@ const FindPlaylist = () => {
           songCount: Object.keys(result[playlistName].playlist).length,
         }))
       );
-      console.log(playlists);
       setLoading(false);
     } else {
       setPlaylists([]);
@@ -56,12 +53,12 @@ const FindPlaylist = () => {
   };
 
   const findPlaylist = () => {
-    console.log(playlists);
-    if (playlists.filter((p) => p.name === userId).length > 0) {
+    if (userId === "") {
+      alert("Please enter at least one character for a playlist name!");
+    } else if (playlists.filter((p) => p.name === userId).length > 0) {
       alert("A playlist with that name already exists");
     } else {
       setUsername(userId);
-      console.log(id);
       history.push(`/add-song/${id}`, { uuid: id });
     }
   };
@@ -69,7 +66,6 @@ const FindPlaylist = () => {
   const handlePlaylistSelection = (username, uuid) => {
     setUsername(username);
     setUUID(uuid);
-    console.log(uuid);
     history.push(`/playlist/${uuid}`);
   };
 
@@ -80,19 +76,31 @@ const FindPlaylist = () => {
         <div style={{ margin: "20px 0" }}>
           Enter the name of the playlist you'd like to create.
         </div>
-        <label>
-          Playlist Name:
-          <input
-            style={{ marginLeft: "10px" }}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Form.Label>Playlist Name:</Form.Label>
+          <Form.Control
+            required
+            style={{ width: "50%", marginLeft: "20px" }}
             type="text"
-            value={userId}
             name="name"
+            value={userId}
             onChange={handlePlaylistChange}
+            feedbackType="invalid"
           />
-        </label>
-        <button onClick={findPlaylist} style={{ marginLeft: "30px" }}>
-          Create
-        </button>
+          <Button
+            variant="primary"
+            onClick={findPlaylist}
+            style={{ marginLeft: "30px" }}
+          >
+            Create
+          </Button>
+        </div>
       </div>
       <h1> Existing Playlists</h1>
       {loading ? (
