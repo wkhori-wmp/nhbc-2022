@@ -14,8 +14,12 @@ const PlaylistList = ({ playlists, handlePlaylistSelection }) => {
   return (
     <>
       {playlists.map((playlist) => (
-        <PlaylistDiv onClick={() => handlePlaylistSelection(playlist.name)}>
-          <span style={{ flexGrow: "1", marginLeft: "1rem" }}>
+        <PlaylistDiv
+          onClick={() => handlePlaylistSelection(playlist.name, playlist.uuid)}
+        >
+          <span
+            style={{ flexGrow: "1", marginLeft: "1rem", cursor: "pointer" }}
+          >
             <strong>{playlist.name}</strong>
           </span>
           <span style={{ marginRight: "1rem" }}>
