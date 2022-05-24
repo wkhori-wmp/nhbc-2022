@@ -1,20 +1,11 @@
-import styled from "styled-components";
-
-const PlaylistDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: black solid 1px;
-  border-radius: 5px;
-  height: 6rem;
-  margin-bottom: 1rem;
-`;
+import React from "react";
+import { ExistingPlaylistRow } from "./Playlist.style";
 
 const PlaylistList = ({ playlists, handlePlaylistSelection }) => {
   return (
     <>
       {playlists.map((playlist) => (
-        <PlaylistDiv
+        <ExistingPlaylistRow
           onClick={() => handlePlaylistSelection(playlist.name, playlist.uuid)}
         >
           <span
@@ -26,7 +17,7 @@ const PlaylistList = ({ playlists, handlePlaylistSelection }) => {
             {playlist.songCount} Song
             {playlist.songCount > 1 && "s"}
           </span>
-        </PlaylistDiv>
+        </ExistingPlaylistRow>
       ))}
     </>
   );

@@ -6,7 +6,7 @@ import { v1 as uuidv1 } from "uuid";
 import { setUsername, getPlaylists, setUUID } from "../../../firebase/firebase";
 import PlaylistList from "./PlaylistList";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
-import { FlexContainer } from "./Playlist.style";
+import { PageWrapper } from "../style";
 
 const FindPlaylist = () => {
   const history = useHistory();
@@ -60,7 +60,7 @@ const FindPlaylist = () => {
   };
 
   return (
-    <FlexContainer>
+    <PageWrapper>
       <div>
         <h1> Create a Playlist</h1>
         <div style={{ margin: "20px 0" }}>
@@ -105,7 +105,7 @@ const FindPlaylist = () => {
           handlePlaylistSelection={handlePlaylistSelection}
         />
       )}
-    </FlexContainer>
+    </PageWrapper>
   );
 };
 

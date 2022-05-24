@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Input = styled.input`
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 8px;
+  padding: 10px 15px;
+  margin: 5px;
   border-radius: 5px;
   border-color: #bfbfbf;
   border-style: solid;
@@ -13,7 +13,7 @@ export const Input = styled.input`
 
 export const ErrorMessage = styled.span`
   color: red;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   min-height: 20px;
-  margin-left: 8px;
+  margin-left: 10px;
 `;

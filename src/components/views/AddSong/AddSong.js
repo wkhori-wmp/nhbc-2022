@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -11,13 +12,14 @@ import {
   getPlaylists,
 } from "../../../firebase/firebase";
 import FormInputField from "../../core/Forms/FormInputField";
-import { translations, validations } from "./utils";
+import { formFields } from "./utils";
+import { PageWrapper } from "../style";
 import AddSongToPlaylist from "./AddSongToPlaylist";
 import {
-  AddSongWrapper,
   AddSongForm,
   FormTitle,
   YoutubeIcon,
+  addSongButtonStyles,
 } from "./AddSong.style";
 
 const AddSong = () => {
@@ -28,17 +30,9 @@ const AddSong = () => {
   const [loading, setLoading] = useState(true);
   const [playlistName, setPlaylistName] = useState("");
 
-  useEffect(() => {
-    if (username === "") {
-      getPlaylistNameByUUID(playlistId);
-    }
-    setLoading(false);
-    console.log(username, playlistName);
-  }, []);
-
   const getPlaylistNameByUUID = async (id) => {
     const result = await getPlaylists();
-    console.log(result);
+    // console.log(result);
     if (result && playlistId) {
       await setPlaylistName(
         Object.keys(result)[
@@ -52,6 +46,14 @@ const AddSong = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if (username === "") {
+      getPlaylistNameByUUID(playlistId);
+    }
+    setLoading(false);
+    console.log(username, playlistName);
+  }, []);
 
   // React Hook Form
   const {
@@ -76,29 +78,19 @@ const AddSong = () => {
   };
 
   const {
-    addSong: {
-      inputs: { title, artist, album, ytLink },
-    },
-  } = translations;
-  const {
-    addSong: {
-      titleFieldValidation,
-      artistFieldValidation,
-      albumFieldValidation,
-      ytLinkFieldValidation,
-    },
-  } = validations;
+    inputs: { title, artist, album, ytLink },
+  } = formFields;
 
   // Early return if a playlist has not been created or selected
   if (!playlistId) {
     return (
-      <AddSongWrapper>
+      <PageWrapper>
         <FormTitle>Add Song</FormTitle>
         <div style={{ margin: "20px 0" }}>
           Create or select an existing playlist before adding a song.
           <AddSongToPlaylist />
         </div>
-      </AddSongWrapper>
+      </PageWrapper>
     );
   }
 
@@ -107,7 +99,7 @@ const AddSong = () => {
       {loading ? (
         <LoadingIcon />
       ) : (
-        <AddSongWrapper>
+        <PageWrapper>
           <FormTitle>Add song for {username || playlistName}</FormTitle>
           <FormProvider register={register}>
             <AddSongForm onSubmit={handleSubmit(onSubmit)}>
@@ -117,7 +109,7 @@ const AddSong = () => {
                 errors={errors}
                 type="text"
                 placeholder={title.placeholder}
-                validations={titleFieldValidation}
+                validations={title.validation}
               />
               <label htmlFor={artist.label}>Artist:</label>
               <FormInputField
@@ -125,7 +117,7 @@ const AddSong = () => {
                 type="text"
                 errors={errors}
                 placeholder={artist.placeholder}
-                validations={artistFieldValidation}
+                validations={artist.validation}
               />
               <label htmlFor={album.label}>Album:</label>
               <FormInputField
@@ -133,7 +125,7 @@ const AddSong = () => {
                 type="text"
                 errors={errors}
                 placeholder={album.placeholder}
-                validations={albumFieldValidation}
+                validations={album.validation}
               />
               <label htmlFor={ytLink.label}>
                 YouTube Link:
@@ -150,18 +142,18 @@ const AddSong = () => {
                 type="text"
                 errors={errors}
                 placeholder={ytLink.placeholder}
-                validations={ytLinkFieldValidation}
+                validations={ytLink.validation}
               />
               <Button
                 variant="primary"
                 type="submit"
-                style={{ margin: "0 auto" }}
+                style={addSongButtonStyles}
               >
                 Add song
               </Button>
             </AddSongForm>
           </FormProvider>
-        </AddSongWrapper>
+        </PageWrapper>
       )}
     </>
   );

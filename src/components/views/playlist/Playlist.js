@@ -13,11 +13,8 @@ import {
   setUsername,
 } from "../../../firebase/firebase";
 import FindPlaylist from "./FindPlaylist";
-import {
-  PlaylistWrapper,
-  YoutubeVideo,
-  TrashIconWrapper,
-} from "./Playlist.style";
+import { YoutubeVideo, TrashIconWrapper } from "./Playlist.style";
+import { PageWrapper } from "../style";
 
 const Playlist = () => {
   const history = useHistory();
@@ -55,7 +52,7 @@ const Playlist = () => {
       );
       setLoading(false);
     }
-    console.log("mySongs array", mySongsArr);
+    // console.log("mySongs array", mySongsArr);
   };
 
   const expandRow = {
@@ -86,7 +83,6 @@ const Playlist = () => {
     setMySongsArr(newSongArr);
     if (newSongArr.length === 0) {
       await deletePlaylist(playlistName);
-      console.log("gettning here or nah?");
       history.push("/playlist");
     }
   };
@@ -138,15 +134,13 @@ const Playlist = () => {
   ];
 
   return (
-    <PlaylistWrapper>
+    <PageWrapper>
       {!playlistId ? (
         <FindPlaylist />
       ) : (
         <>
           {loading ? (
-            <>
-              <LoadingIcon />
-            </>
+            <LoadingIcon />
           ) : (
             <>
               <h1>{playlistName}</h1>
@@ -171,7 +165,7 @@ const Playlist = () => {
           )}
         </>
       )}
-    </PlaylistWrapper>
+    </PageWrapper>
   );
 };
 
