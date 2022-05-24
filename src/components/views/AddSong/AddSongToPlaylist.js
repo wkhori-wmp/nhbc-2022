@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
-import { setUsername, getPlaylists, setUUID } from "../../../firebase/firebase";
+import {
+  setPlaylistName,
+  getPlaylists,
+  setUUID,
+} from "../../../firebase/firebase";
 import PlaylistList from "../Playlist/PlaylistList";
 import { AddSongToPlaylistWrapper } from "./AddSong.style";
 
@@ -13,7 +17,7 @@ const AddSongToPlaylist = () => {
 
   // Load playlists from firebase on mount
   useEffect(() => {
-    setUsername("");
+    setPlaylistName("");
     getAllPlaylists();
   }, []);
 
@@ -36,8 +40,8 @@ const AddSongToPlaylist = () => {
     }
   };
 
-  const handlePlaylistSelection = (username, uuid) => {
-    setUsername(username);
+  const handlePlaylistSelection = (playlist, uuid) => {
+    setPlaylistName(playlist);
     setUUID(uuid);
     console.log(uuid);
     history.push(`/add-song/${uuid}`);

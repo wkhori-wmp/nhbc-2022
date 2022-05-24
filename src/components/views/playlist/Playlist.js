@@ -10,7 +10,7 @@ import {
   deleteItem,
   deletePlaylist,
   getPlaylists,
-  setUsername,
+  setPlaylistName,
 } from "../../../firebase/firebase";
 import FindPlaylist from "./FindPlaylist";
 import { YoutubeVideo, TrashIconWrapper } from "./Playlist.style";
@@ -24,7 +24,7 @@ const Playlist = () => {
   const [loading, setLoading] = useState(true);
 
   const getPlaylist = async () => {
-    setUsername(playlistName);
+    setPlaylistName(playlistName);
     await getItems();
   };
 

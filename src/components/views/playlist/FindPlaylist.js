@@ -3,27 +3,35 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { v1 as uuidv1 } from "uuid";
-import { setUsername, getPlaylists, setUUID } from "../../../firebase/firebase";
+import {
+  setPlaylistName,
+  getPlaylists,
+  setUUID,
+} from "../../../firebase/firebase";
 import PlaylistList from "./PlaylistList";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
 import { PageWrapper } from "../style";
+import {
+  CreatePlaylistFormWrapper,
+  createPlaylistFormInputStyles,
+} from "./Playlist.style";
 
 const FindPlaylist = () => {
   const history = useHistory();
-  const [userId, setUserId] = useState("");
+  const [playlistID, setPlaylistID] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
   const id = uuidv1();
 
   // Load playlists from firebase on mount
   useEffect(() => {
-    setUserId("");
+    setPlaylistID("");
     getAllPlaylists();
   }, []);
 
   const getAllPlaylists = async () => {
     const result = await getPlaylists();
-    if (result && !userId) {
+    if (result.length && !playlistID) {
       setPlaylists(
         Object.keys(result).map((playlistName) => ({
           name: playlistName,
@@ -39,22 +47,22 @@ const FindPlaylist = () => {
   };
 
   const handlePlaylistChange = (event) => {
-    setUserId(event.target.value);
+    setPlaylistID(event.target.value);
   };
 
   const findPlaylist = () => {
-    if (userId === "") {
+    if (playlistID === "") {
       alert("Please enter at least one character for a playlist name!");
-    } else if (playlists.filter((p) => p.name === userId).length > 0) {
+    } else if (playlists.filter((p) => p.name === playlistID).length > 0) {
       alert("A playlist with that name already exists");
     } else {
-      setUsername(userId);
+      setPlaylistName(playlistID);
       history.push(`/add-song/${id}`, { uuid: id });
     }
   };
 
-  const handlePlaylistSelection = (username, uuid) => {
-    setUsername(username);
+  const handlePlaylistSelection = (playlist, uuid) => {
+    setPlaylistName(playlist);
     setUUID(uuid);
     history.push(`/playlist/${uuid}`);
   };
@@ -63,38 +71,26 @@ const FindPlaylist = () => {
     <PageWrapper>
       <div>
         <h1> Create a Playlist</h1>
-        <div style={{ margin: "20px 0" }}>
-          Enter the name of the playlist you'd like to create.
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
+        <div>Enter the name of the playlist you'd like to create.</div>
+        <CreatePlaylistFormWrapper>
           <Form.Label>Playlist Name:</Form.Label>
           <Form.Control
             required
-            style={{
-              width: "50%",
-              marginLeft: "20px",
-              backgroundColor: "#e9eef1",
-            }}
+            style={createPlaylistFormInputStyles}
             type="text"
             name="name"
-            value={userId}
+            value={playlistID}
             onChange={handlePlaylistChange}
             feedbackType="invalid"
           />
           <Button
             variant="primary"
             onClick={findPlaylist}
-            style={{ marginLeft: "30px" }}
+            style={{ marginLeft: "5px" }}
           >
             Create
           </Button>
-        </div>
+        </CreatePlaylistFormWrapper>
       </div>
       <h1> Existing Playlists</h1>
       {loading ? (

@@ -16,14 +16,14 @@ const app = firebase.initializeApp(config);
 const db = firebase.database(app);
 
 //export default firebase;
-var myUsername = "";
+var playlistName = "";
 
-export function getUsername() {
-  return myUsername;
+export function getPlaylistName() {
+  return playlistName;
 }
 
-export function setUsername(id) {
-  myUsername = id;
+export function setPlaylistName(id) {
+  playlistName = id;
 }
 
 /**
@@ -40,7 +40,10 @@ export function setUsername(id) {
  */
 export function createItem(item) {
   const dbRef = db.ref(
-    "users/" + myUsername + "/playlist/song-" + Math.round(Math.random() * 1000)
+    "playlists/" +
+      playlistName +
+      "/playlist/song-" +
+      Math.round(Math.random() * 1000)
   );
   return dbRef.set({
     ...item,
@@ -48,7 +51,7 @@ export function createItem(item) {
 }
 
 export function setUUID(uuid) {
-  const dbRef = db.ref("users/" + myUsername + "/uuid");
+  const dbRef = db.ref("playlists/" + playlistName + "/uuid");
   return dbRef.set(uuid);
 }
 
@@ -65,7 +68,7 @@ export function setUUID(uuid) {
  * @returns {Promise}
  */
 export function getItems() {
-  var dbRef = db.ref("users/" + myUsername + "/playlist");
+  var dbRef = db.ref("playlists/" + playlistName + "/playlist");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);
@@ -76,7 +79,7 @@ export function getItems() {
 }
 
 export function getUUID() {
-  var dbRef = db.ref("users/" + myUsername + "/uuid");
+  var dbRef = db.ref("playlists/" + playlistName + "/uuid");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);
@@ -98,12 +101,12 @@ export function getUUID() {
  * @returns {Promise}
  */
 export function deleteItem(songId) {
-  var dbRef = db.ref("users/" + myUsername + "/playlist/" + songId);
+  var dbRef = db.ref("playlists/" + playlistName + "/playlist/" + songId);
   return dbRef.remove();
 }
 
-export function deletePlaylist(username) {
-  var dbRef = db.ref("users/" + username);
+export function deletePlaylist(playlist) {
+  var dbRef = db.ref("playlists/" + playlist);
   return dbRef.remove();
 }
 
@@ -120,7 +123,7 @@ export function deletePlaylist(username) {
  * @returns {Promise}
  */
 export function getPlaylists() {
-  var dbRef = db.ref("users");
+  var dbRef = db.ref("playlists");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);

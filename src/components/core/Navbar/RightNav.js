@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { setUsername } from "../../../firebase/firebase";
+import { setPlaylistName } from "../../../firebase/firebase";
 import { HamburgerLinks } from "./Navbar.style";
 
 const RightNav = ({ open, toggleMenu }) => {
@@ -13,7 +13,7 @@ const RightNav = ({ open, toggleMenu }) => {
         <Link
           to="/playlist"
           onClick={() => {
-            setUsername("");
+            setPlaylistName("");
           }}
         >
           Playlist

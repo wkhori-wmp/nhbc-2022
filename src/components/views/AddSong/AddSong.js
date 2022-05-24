@@ -6,8 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
 import {
   createItem,
-  getUsername,
-  setUsername,
+  getPlaylistName,
   setUUID,
   getPlaylists,
 } from "../../../firebase/firebase";
@@ -26,20 +25,20 @@ const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
   const history = useHistory();
   const { playlistId } = useParams();
-  const username = getUsername();
+  const playlistName = getPlaylistName();
   const [loading, setLoading] = useState(true);
-  const [playlistName, setPlaylistName] = useState("");
+  const [playlist, setPlaylist] = useState("");
 
   const getPlaylistNameByUUID = async (id) => {
     const result = await getPlaylists();
     // console.log(result);
     if (result && playlistId) {
-      await setPlaylistName(
+      await setPlaylist(
         Object.keys(result)[
           Object.values(result).findIndex((r) => r.uuid === id)
         ]
       );
-      setUsername(
+      setPlaylist(
         Object.keys(result)[
           Object.values(result).findIndex((r) => r.uuid === id)
         ]
@@ -48,11 +47,11 @@ const AddSong = () => {
   };
 
   useEffect(() => {
-    if (username === "") {
+    if (playlistName === "") {
       getPlaylistNameByUUID(playlistId);
     }
     setLoading(false);
-    console.log(username, playlistName);
+    console.log(playlistName, playlist);
   }, []);
 
   // React Hook Form
@@ -100,7 +99,7 @@ const AddSong = () => {
         <LoadingIcon />
       ) : (
         <PageWrapper>
-          <FormTitle>Add song for {username || playlistName}</FormTitle>
+          <FormTitle>Add song for {playlistName || playlist}</FormTitle>
           <FormProvider register={register}>
             <AddSongForm onSubmit={handleSubmit(onSubmit)}>
               <label htmlFor={title.label}>Title:</label>
