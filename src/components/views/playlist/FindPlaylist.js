@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { v1 as uuidv1 } from "uuid";
-import {
-  setPlaylistName,
-  getPlaylists,
-  setUUID,
-} from "../../../firebase/firebase";
+import { setPlaylistName } from "../../../firebase/firebase";
+import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import PlaylistList from "./PlaylistList";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
 import { PageWrapper } from "../style";
@@ -18,33 +15,11 @@ import {
 
 const FindPlaylist = () => {
   const history = useHistory();
+  const { playlists, loading, selectPlaylist } = usePlaylistContext();
   const [playlistID, setPlaylistID] = useState("");
-  const [playlists, setPlaylists] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [playlists, setPlaylists] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const id = uuidv1();
-
-  // Load playlists from firebase on mount
-  useEffect(() => {
-    setPlaylistID("");
-    getAllPlaylists();
-  }, []);
-
-  const getAllPlaylists = async () => {
-    const result = await getPlaylists();
-    if (result.length && !playlistID) {
-      setPlaylists(
-        Object.keys(result).map((playlistName) => ({
-          name: playlistName,
-          uuid: result[playlistName].uuid,
-          songs: playlistName.playlist,
-          songCount: Object.keys(result[playlistName].playlist).length,
-        }))
-      );
-      setLoading(false);
-    } else {
-      setPlaylists([]);
-    }
-  };
 
   const handlePlaylistChange = (event) => {
     setPlaylistID(event.target.value);
@@ -62,10 +37,11 @@ const FindPlaylist = () => {
   };
 
   const handlePlaylistSelection = (playlist, uuid) => {
-    setPlaylistName(playlist);
-    setUUID(uuid);
+    selectPlaylist(playlist, uuid);
     history.push(`/playlist/${uuid}`);
   };
+
+  console.log(playlists);
 
   return (
     <PageWrapper>
