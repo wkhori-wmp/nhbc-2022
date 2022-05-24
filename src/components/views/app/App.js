@@ -1,6 +1,6 @@
 import React from "react";
 import { AppWrapper } from "./App.style";
-import NavBar from "../../core/nav-bar";
+import NavBar from "../../core/navbar/NavBar";
 import { Route, Switch } from "react-router-dom";
 import routes from "../../../routes/routes";
 

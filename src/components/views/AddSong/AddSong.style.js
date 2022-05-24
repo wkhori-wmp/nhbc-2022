@@ -42,3 +42,9 @@ export const YoutubeIcon = styled.img`
   max-height: 30px;
   margin-left: 5px;
 `;
+
+export const AddSongToPlaylistWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+`;

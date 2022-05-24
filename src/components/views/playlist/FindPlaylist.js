@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { v1 as uuidv1 } from "uuid";
-import { setUsername, getPlaylists, setUUID } from "../../../firebase/firebase";
-import styled from "styled-components";
-import PlaylistList from "./PlaylistList";
-import { CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-
-const FlexContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-`;
-
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+import { v1 as uuidv1 } from "uuid";
+import { setUsername, getPlaylists, setUUID } from "../../../firebase/firebase";
+import PlaylistList from "./PlaylistList";
+import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
+import { FlexContainer } from "./Playlist.style";
 
 const FindPlaylist = () => {
   const history = useHistory();
   const [userId, setUserId] = useState("");
-  const id = uuidv1();
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
+  const id = uuidv1();
 
   // Load playlists from firebase on mount
   useEffect(() => {
@@ -86,7 +75,11 @@ const FindPlaylist = () => {
           <Form.Label>Playlist Name:</Form.Label>
           <Form.Control
             required
-            style={{ width: "50%", marginLeft: "20px" }}
+            style={{
+              width: "50%",
+              marginLeft: "20px",
+              backgroundColor: "#e9eef1",
+            }}
             type="text"
             name="name"
             value={userId}
@@ -104,9 +97,7 @@ const FindPlaylist = () => {
       </div>
       <h1> Existing Playlists</h1>
       {loading ? (
-        <LoadingContainer>
-          <CircularProgress size="8rem" />
-        </LoadingContainer>
+        <LoadingIcon />
       ) : (
         <PlaylistList
           playlists={playlists}

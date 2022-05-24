@@ -1,23 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import styled from "styled-components";
-
-const StyledInput = styled.input`
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 8px;
-  border-radius: 5px;
-  border-color: #bfbfbf;
-  border-style: solid;
-  border-width: 0.5px;
-  background-color: #fdb515;
-`;
-
-const StyledErrorMessage = styled.span`
-  color: red;
-  margin-bottom: 20px;
-  min-height: 20px;
-  margin-left: 8px;
-`;
+import { Input, ErrorMessage } from "./FormInputField.style";
 
 const FormInputField = ({ name, errors, validations = {}, ...rest }) => {
   // Get form context passed down from FormProvider
@@ -25,10 +7,8 @@ const FormInputField = ({ name, errors, validations = {}, ...rest }) => {
   const displayError = errors && name in errors;
   return (
     <>
-      <StyledInput {...register(name, validations)} {...rest} />
-      <StyledErrorMessage>
-        {displayError ? errors[name]?.message : ""}
-      </StyledErrorMessage>
+      <Input {...register(name, validations)} {...rest} />
+      <ErrorMessage>{displayError ? errors[name]?.message : ""}</ErrorMessage>
     </>
   );
 };

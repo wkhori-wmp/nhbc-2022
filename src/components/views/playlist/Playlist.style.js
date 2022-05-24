@@ -27,3 +27,30 @@ export const PlaylistWrapper = styled.div`
   ${breakpoints("margin-left", "%", [{ 2000: 25 }, { 600: 10 }])};
   ${breakpoints("width", "%", [{ 2000: 50 }, { 600: 80 }])};
 `;
+
+export const YoutubeVideo = styled.iframe`
+  width: 560px;
+  height: 315px;
+  @media (max-width: 450px) {
+    width: 300px;
+    height: 200px;
+  }
+`;
+
+export const TrashIconWrapper = styled.div`
+  &:hover .delete-button {
+    color: red;
+    cursor: pointer;
+  }
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

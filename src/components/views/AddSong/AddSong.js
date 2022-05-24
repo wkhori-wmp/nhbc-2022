@@ -1,40 +1,28 @@
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { FormProvider, useForm } from "react-hook-form";
+import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
 import {
   createItem,
   getUsername,
   setUsername,
-  getUUID,
-  createItemAndUUID,
   setUUID,
   getPlaylists,
 } from "../../../firebase/firebase";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import FormInputField from "../../core/Forms/FormInputField";
+import { translations, validations } from "./utils";
+import AddSongToPlaylist from "./AddSongToPlaylist";
 import {
   AddSongWrapper,
   AddSongForm,
   FormTitle,
   YoutubeIcon,
 } from "./AddSong.style";
-import { Button } from "react-bootstrap";
-import { FormProvider, useForm } from "react-hook-form";
-import FormInputField from "../../core/forms/FormInputField";
-import translations from "./config/translations";
-import validations from "./config/validations";
-import { useLocation, useParams } from "react-router-dom";
-import AddSongToPlaylist from "./AddSongToPlaylist";
-import styled from "styled-components";
-import { CircularProgress } from "@material-ui/core";
-
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 const AddSong = () => {
   // The useHistory hook gives you access to the history instance that you may use to navigate.
   const history = useHistory();
-  const location = useLocation();
-  const uuid = getUUID();
   const { playlistId } = useParams();
   const username = getUsername();
   const [loading, setLoading] = useState(true);
@@ -117,9 +105,7 @@ const AddSong = () => {
   return (
     <>
       {loading ? (
-        <LoadingContainer>
-          <CircularProgress size="8rem" />
-        </LoadingContainer>
+        <LoadingIcon />
       ) : (
         <AddSongWrapper>
           <FormTitle>Add song for {username || playlistName}</FormTitle>

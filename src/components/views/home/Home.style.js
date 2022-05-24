@@ -7,12 +7,6 @@ export const PageWrapper = styled.div`
   justify-content: right;
 `;
 
-export const MainImage = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 export const Description = styled.div`
   display: flex;
   flex-direction: column;
