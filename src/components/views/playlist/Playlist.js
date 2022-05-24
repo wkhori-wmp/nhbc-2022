@@ -25,14 +25,11 @@ const Playlist = () => {
   const [mySongsArr, setMySongsArr] = useState([]);
   const [playlistName, setPlaylistName] = useState("");
   const [loading, setLoading] = useState(true);
-  //const username = getUsername();
 
   const getPlaylist = async () => {
     setUsername(playlistName);
     await getItems();
   };
-
-  console.log(playlistId);
 
   useEffect(() => {
     getAllPlaylists(playlistId);
@@ -165,8 +162,6 @@ const Playlist = () => {
               <button
                 onClick={() => {
                   history.push("/playlist");
-                  // setMySongsArr([]);
-                  // setUsername("");
                 }}
                 style={{ display: "block", marginTop: "20px" }}
               >
