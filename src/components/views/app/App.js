@@ -1,6 +1,6 @@
 import React from "react";
 import { AppWrapper } from "./App.style";
-import NavBar from "../../core/navbar/NavBar";
+import Navbar from "../../core/Navbar/Navbar";
 import { Route, Switch } from "react-router-dom";
 import routes from "../../../routes/routes";
 
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div className="App">
       <AppWrapper>
-        <NavBar />
+        <Navbar />
         <Switch>{renderedRoutes}</Switch>
       </AppWrapper>
     </div>
