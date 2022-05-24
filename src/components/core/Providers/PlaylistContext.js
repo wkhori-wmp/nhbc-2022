@@ -2,19 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const PlaylistContext = createContext({ refreshPlaylist: () => {} });
 
-const LOCATIONS = [
-  "CHI",
-  "DAL",
-  "DC",
-  "LA",
-  "LDN",
-  "MPLS",
-  "NYC",
-  "Remote",
-  "SEA",
-  "SF",
-];
-
 export const PlaylistContextProvider = ({ children, ...props }) => {
   const [Playlist, setPlaylist] = useState([]);
   const [loading, setLoading] = useState(true);
