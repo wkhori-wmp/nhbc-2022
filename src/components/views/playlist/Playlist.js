@@ -1,59 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Trash2 } from "react-feather";
+import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
-import {
-  getItems,
-  deleteItem,
-  deletePlaylist,
-  getPlaylists,
-  setPlaylistName,
-} from "../../../firebase/firebase";
+import { deleteItem, deletePlaylist } from "../../../firebase/firebase";
 import FindPlaylist from "./FindPlaylist";
 import { YoutubeVideo, TrashIconWrapper } from "./Playlist.style";
 import { PageWrapper } from "../style";
 
 const Playlist = () => {
   const history = useHistory();
+  const {
+    loading,
+    playlists,
+    selectedPlaylist: { playlist },
+  } = usePlaylistContext();
   const { playlistId } = useParams();
-  const [mySongsArr, setMySongsArr] = useState([]);
-  const [playlistName, setPlaylistName] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  const getPlaylist = async () => {
-    setPlaylistName(playlistName);
-    await getItems();
-  };
+  const [currentPlaylistName, setCurrentPlaylistName] = useState();
+  const [currentPlaylist, setCurrentPlaylist] = useState([]);
 
   useEffect(() => {
-    getAllPlaylists(playlistId);
-  }, [loading, playlistId]);
-
-  const getAllPlaylists = async (id) => {
-    const result = await getPlaylists();
-    if (result && playlistId) {
-      // console.log(
-      //   Object.values(
-      //     Object.values(result).filter((r) => r.uuid === playlistId)
-      //   )
-      // );
-      setMySongsArr(
-        Object.values(
-          Object.values(result).filter((r) => r.uuid === id)[0].playlist
-        )
+    if (playlists) {
+      const currPlaylist = playlists.find(
+        (playlist) => playlist.uuid === playlistId
       );
-      setPlaylistName(
-        Object.keys(result)[
-          Object.values(result).findIndex((r) => r.uuid === id)
-        ]
-      );
-      setLoading(false);
+      setCurrentPlaylistName(currPlaylist.name);
+      setCurrentPlaylist(Object.values(currPlaylist.songs));
     }
-    // console.log("mySongs array", mySongsArr);
-  };
+  }, [playlists]);
 
   const expandRow = {
     renderer: (row) => (
@@ -74,15 +52,15 @@ const Playlist = () => {
 
   const handleDelete = async (id) => {
     deleteItem(id);
-    await getPlaylist();
+    // await getPlaylist();
   };
 
   const removeSong = async (id) => {
     handleDelete(id);
-    const newSongArr = mySongsArr.filter((a) => a.index !== id);
-    setMySongsArr(newSongArr);
-    if (newSongArr.length === 0) {
-      await deletePlaylist(playlistName);
+    const newSongArr = currentPlaylist.filter((a) => a.index !== id);
+    setCurrentPlaylist(newSongArr);
+    if (newSongArr?.length === 0) {
+      await deletePlaylist(playlist);
       history.push("/playlist");
     }
   };
@@ -122,7 +100,7 @@ const Playlist = () => {
       text: "Delete?",
       headerAlign: "center",
       formatter: imageFormatter,
-      formatExtraData: mySongsArr,
+      formatExtraData: currentPlaylist,
       style: { cursor: "pointer" },
     },
   ];
@@ -143,24 +121,25 @@ const Playlist = () => {
             <LoadingIcon />
           ) : (
             <>
-              <h1>{playlistName}</h1>
+              <h1>{currentPlaylistName}</h1>
               <BootstrapTable
                 keyField="index"
-                data={mySongsArr}
+                data={currentPlaylist}
                 columns={columns}
                 expandRow={expandRow}
               />
-              <CSVLink data={mySongsArr} headers={csvHeaders}>
+              <CSVLink data={currentPlaylist} headers={csvHeaders}>
                 Export your playlist to a CSV
               </CSVLink>
-              <button
+              <Button
+                variant="primary"
                 onClick={() => {
                   history.push("/playlist");
                 }}
                 style={{ display: "block", marginTop: "20px" }}
               >
                 Go Back
-              </button>
+              </Button>
             </>
           )}
         </>

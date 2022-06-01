@@ -1,16 +1,21 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   setPlaylistName,
-  getPlaylists,
+  getPlaylistName,
   setUUID,
+  getUUID,
+  getPlaylists,
 } from "../../../firebase/firebase";
 
 const PlaylistContext = createContext({ refreshPlaylist: () => {} });
 
 export const PlaylistContextProvider = ({ children, ...props }) => {
-  const [playlists, SetPlaylists] = useState([]);
-  const [selectedPlaylist, SetSelectedPlaylist] = useState([]);
-  const [loading, SetLoading] = useState(true);
+  const [playlists, setPlaylists] = useState([]);
+  const [selectedPlaylist, setSelectedPlaylist] = useState({
+    name: getPlaylistName(),
+    uuid: getUUID(),
+  });
+  const [loading, setLoading] = useState(true);
 
   //   const refreshPlaylist = (jwt) => {
   //     fetchPlaylists(jwt)
@@ -21,12 +26,9 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const result = await getPlaylists();
-
     if (result) {
-      console.log(result);
-      SetPlaylists(
+      setPlaylists(
         Object.keys(result).map((playlistName) => {
-          console.log(result, result[playlistName]);
           return {
             name: playlistName,
             uuid: result[playlistName].uuid,
@@ -37,20 +39,40 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
           };
         })
       );
-      SetLoading(false);
+
+      setLoading(false);
     } else {
-      SetPlaylists([]);
+      setPlaylists([]);
     }
   }, []);
 
   const selectPlaylist = ({ playlist, uuid }) => {
+    setSelectedPlaylist({ playlist, uuid });
     setPlaylistName(playlist);
     setUUID(uuid);
   };
 
+  const createPlaylist = ({ playlist, uuid }) => {
+    // TODO Finish
+  };
+
+  const deletePlaylist = ({ playlist, uuid }) => {
+    // TODO Finish
+  };
+
+  const deleteSong = ({ playlist, uuid }) => {
+    // TODO Finish
+  };
+
   return (
     <PlaylistContext.Provider
-      value={{ playlists, SetPlaylists, loading, selectPlaylist }}
+      value={{
+        playlists,
+        setPlaylists,
+        loading,
+        selectPlaylist,
+        selectedPlaylist,
+      }}
       {...props}
     >
       {children}

@@ -16,10 +16,4 @@ export const YoutubeIcon = styled.img`
   margin-left: 5px;
 `;
 
-export const AddSongToPlaylistWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-`;
-
 export const addSongButtonStyles = { width: "130px", margin: "auto" };

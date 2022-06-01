@@ -18,12 +18,14 @@ export const TrashIconWrapper = styled.div`
 
 export const ExistingPlaylistRow = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border: black solid 1px;
   border-radius: 5px;
   height: 45px;
   margin-bottom: 1rem;
+  padding-left: 12px;
+  padding-right: 12px;
 `;
 
 export const CreatePlaylistFormWrapper = styled.div`

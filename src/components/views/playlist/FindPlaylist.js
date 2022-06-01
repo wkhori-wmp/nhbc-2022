@@ -13,12 +13,11 @@ import {
   createPlaylistFormInputStyles,
 } from "./Playlist.style";
 
+// Shared component between /playlist and /add-song
 const FindPlaylist = () => {
   const history = useHistory();
-  const { playlists, loading, selectPlaylist } = usePlaylistContext();
+  const { playlists, loading } = usePlaylistContext();
   const [playlistID, setPlaylistID] = useState("");
-  // const [playlists, setPlaylists] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const id = uuidv1();
 
   const handlePlaylistChange = (event) => {
@@ -35,13 +34,6 @@ const FindPlaylist = () => {
       history.push(`/add-song/${id}`, { uuid: id });
     }
   };
-
-  const handlePlaylistSelection = (playlist, uuid) => {
-    selectPlaylist(playlist, uuid);
-    history.push(`/playlist/${uuid}`);
-  };
-
-  console.log(playlists);
 
   return (
     <PageWrapper>
@@ -69,14 +61,7 @@ const FindPlaylist = () => {
         </CreatePlaylistFormWrapper>
       </div>
       <h1> Existing Playlists</h1>
-      {loading ? (
-        <LoadingIcon />
-      ) : (
-        <PlaylistList
-          playlists={playlists}
-          handlePlaylistSelection={handlePlaylistSelection}
-        />
-      )}
+      {loading ? <LoadingIcon /> : <PlaylistList playlists={playlists} />}
     </PageWrapper>
   );
 };
