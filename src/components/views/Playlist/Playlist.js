@@ -29,10 +29,14 @@ const Playlist = () => {
       const currPlaylist = playlists.find(
         (playlist) => playlist.uuid === playlistId
       );
-      if (currPlaylist.songs && currPlaylist.songs.length !== 0) {
-        setCurrentPlaylist(Object.values(currPlaylist.songs) || []);
+      if (currPlaylist) {
+        if (currPlaylist.songs && currPlaylist.songs.length !== 0) {
+          setCurrentPlaylist(Object.values(currPlaylist.songs) || []);
+        }
+        if (currPlaylist.name) {
+          setCurrentPlaylistName(currPlaylist.name);
+        }
       }
-      setCurrentPlaylistName(currPlaylist.name);
     }
   }, [playlists]);
 
