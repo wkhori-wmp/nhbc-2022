@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FormProvider, useForm } from "react-hook-form";
@@ -21,12 +21,22 @@ const AddSong = () => {
   const history = useHistory();
   const { playlistId } = useParams();
   const {
-    selectedPlaylist: { name, uuid },
+    selectedPlaylist: { name },
+    playlists,
+    selectPlaylist,
     loading,
     addSong,
   } = usePlaylistContext();
 
-  console.log(name, uuid);
+  useEffect(() => {
+    if (playlistId) {
+      const currPlaylist = playlists.find(
+        (playlist) => playlist.uuid === playlistId
+      );
+
+      selectPlaylist({ playlist: currPlaylist?.name, uuid: playlistId });
+    }
+  }, [playlists]);
 
   // React Hook Form
   const {
