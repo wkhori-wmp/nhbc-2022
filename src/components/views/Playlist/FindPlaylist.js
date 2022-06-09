@@ -15,8 +15,7 @@ import {
 // Shared component between /playlist and /add-song
 const FindPlaylist = () => {
   const history = useHistory();
-  const { playlists, loading, selectedPlaylist, createPlaylist } =
-    usePlaylistContext();
+  const { playlists, loading, createPlaylist } = usePlaylistContext();
   const [playlistName, setPlaylistName] = useState("");
   const id = uuidv1();
 
@@ -30,9 +29,8 @@ const FindPlaylist = () => {
     } else if (playlists.filter((p) => p.name === playlistName).length > 0) {
       alert("A playlist with that name already exists");
     } else {
-      console.log(playlistName, "playlistName");
-      createPlaylist(playlistName);
-      history.push(`/add-song/${selectedPlaylist.uuid}`);
+      const newPlaylistUuid = createPlaylist(playlistName);
+      history.push(`/add-song/${newPlaylistUuid}`);
     }
   };
 

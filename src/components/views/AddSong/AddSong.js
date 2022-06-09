@@ -33,7 +33,6 @@ const AddSong = () => {
       const currPlaylist = playlists.find(
         (playlist) => playlist.uuid === playlistId
       );
-
       selectPlaylist({ playlist: currPlaylist?.name, uuid: playlistId });
     }
   }, [playlists]);

@@ -20,9 +20,6 @@ const RightNav = ({ open, toggleMenu }) => {
           Playlist
         </Link>
       </li>
-      <li onClick={toggleMenu}>
-        <Link to="/add-song">Add Song</Link>
-      </li>
     </HamburgerLinks>
   );
 };

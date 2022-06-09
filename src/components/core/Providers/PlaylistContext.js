@@ -26,7 +26,7 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
   //   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
+  const fetchPlaylistsFromFirebase = async () => {
     const result = await getPlaylists();
     if (result) {
       setPlaylists(
@@ -41,15 +41,15 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
           };
         })
       );
-
       setLoading(false);
     } else {
       setPlaylists([]);
     }
-  }, []);
+  };
+
+  useEffect(fetchPlaylistsFromFirebase, []);
 
   const selectPlaylist = ({ playlist, uuid }) => {
-    console.log(playlist, "!!!");
     setSelectedPlaylist({ name: playlist, uuid });
   };
 
@@ -58,19 +58,20 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
     setSelectedPlaylist({ name: selectedPlaylist.name, uuid });
   };
 
+  // creates a new playlist by name and returns the uuid
   const createPlaylist = (playlistName) => {
-    const id = uuidv1();
-    setUUID(playlistName, id);
-    selectPlaylist({ playlist: playlistName, uuid: id });
+    const uuid = uuidv1();
+    setUUID(playlistName, uuid);
+    selectPlaylist({ playlist: playlistName, uuid });
+    return uuid;
   };
 
-  const deletePlaylist = () => {
-    deletePlaylistFromDB(selectedPlaylist.name);
+  const deletePlaylist = async () => {
+    await deletePlaylistFromDB(selectedPlaylist.name);
+    fetchPlaylistsFromFirebase();
   };
 
   const addSong = (songInfo) => {
-    console.log(songInfo);
-    console.log(selectedPlaylist);
     addSongToPlaylistFirebase(songInfo, selectedPlaylist.name);
   };
 
