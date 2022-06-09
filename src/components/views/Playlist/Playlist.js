@@ -29,8 +29,10 @@ const Playlist = () => {
       const currPlaylist = playlists.find(
         (playlist) => playlist.uuid === playlistId
       );
+      if (currPlaylist.songs && currPlaylist.songs.length !== 0) {
+        setCurrentPlaylist(Object.values(currPlaylist.songs) || []);
+      }
       setCurrentPlaylistName(currPlaylist.name);
-      setCurrentPlaylist(Object.values(currPlaylist.songs));
     }
   }, [playlists]);
 
@@ -128,6 +130,9 @@ const Playlist = () => {
                 data={currentPlaylist}
                 columns={columns}
                 expandRow={expandRow}
+                noDataIndication={
+                  "No songs to display. Go add some songs to your playlist!"
+                }
               />
               <CSVLink data={currentPlaylist} headers={csvHeaders}>
                 Export your playlist to a CSV

@@ -45,7 +45,7 @@ const PlaylistList = ({ playlists }) => {
 
           <span style={{ flexGrow: 0.1 }}>
             {playlist.songCount} Song
-            {playlist.songCount > 1 && "s"}
+            {playlist.songCount !== 1 && "s"}
           </span>
         </ExistingPlaylistRow>
       ))}
