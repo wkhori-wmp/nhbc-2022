@@ -4,12 +4,11 @@ import { useHistory, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FormProvider, useForm } from "react-hook-form";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
-import { createItem } from "../../../firebase/firebase";
-import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import FormInputField from "../../core/Forms/FormInputField";
 import { formFields } from "./utils";
 import { PageWrapper } from "../style";
 import FindPlaylist from "../Playlist/FindPlaylist";
+import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import {
   AddSongForm,
   FormTitle,
@@ -22,9 +21,12 @@ const AddSong = () => {
   const history = useHistory();
   const { playlistId } = useParams();
   const {
-    selectedPlaylist: { playlist },
+    selectedPlaylist: { name, uuid },
     loading,
+    addSong,
   } = usePlaylistContext();
+
+  console.log(name, uuid);
 
   // React Hook Form
   const {
@@ -43,7 +45,7 @@ const AddSong = () => {
   });
 
   const onSubmit = async (formData) => {
-    await createItem(formData);
+    await addSong(formData);
     history.push("/playlist");
   };
 
@@ -62,7 +64,7 @@ const AddSong = () => {
           ) : (
             <>
               <PageWrapper>
-                <FormTitle>Add song for {playlist}</FormTitle>
+                <FormTitle>Add song for {name}</FormTitle>
                 <FormProvider register={register}>
                   <AddSongForm onSubmit={handleSubmit(onSubmit)}>
                     <label htmlFor={title.label}>Title:</label>

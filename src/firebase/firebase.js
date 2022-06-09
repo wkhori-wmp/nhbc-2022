@@ -12,19 +12,13 @@ const config = {
   measurementId: "G-BS8L3EFT04",
 };
 
-const app = firebase.initializeApp(config);
+let app;
+if (!firebase.apps.length) {
+  app = firebase.initializeApp(config);
+} else {
+  app = firebase.app(); // if already initialized, use that one
+}
 const db = firebase.database(app);
-
-//export default firebase;
-var playlistName = "";
-
-export function getPlaylistName() {
-  return playlistName;
-}
-
-export function setPlaylistName(id) {
-  playlistName = id;
-}
 
 /**
  * Function that creates a new playlistItem in firebase
@@ -35,10 +29,10 @@ export function setPlaylistName(id) {
  *       dosomething(response.data);
  *  });
  *
- * @param {object} item - New item to store
+ * @param {object} songInfo - New item to store
  * @returns {Promise} - API response
  */
-export function createItem(item) {
+export function addSongToPlaylistFirebase(songInfo, playlistName) {
   const dbRef = db.ref(
     "playlists/" +
       playlistName +
@@ -46,11 +40,11 @@ export function createItem(item) {
       Math.round(Math.random() * 1000)
   );
   return dbRef.set({
-    ...item,
+    ...songInfo,
   });
 }
 
-export function setUUID(uuid) {
+export function setUUID(playlistName, uuid) {
   const dbRef = db.ref("playlists/" + playlistName + "/uuid");
   return dbRef.set(uuid);
 }
@@ -67,7 +61,7 @@ export function setUUID(uuid) {
  *
  * @returns {Promise}
  */
-export function getItems() {
+export function getItems(playlistName) {
   var dbRef = db.ref("playlists/" + playlistName + "/playlist");
 
   return new Promise((resolve, reject) => {
@@ -78,7 +72,7 @@ export function getItems() {
   });
 }
 
-export function getUUID() {
+export function getUUID(playlistName) {
   var dbRef = db.ref("playlists/" + playlistName + "/uuid");
 
   return new Promise((resolve, reject) => {
@@ -100,7 +94,7 @@ export function getUUID() {
  * @param {string} songId - ID of the song to delete
  * @returns {Promise}
  */
-export function deleteItem(songId) {
+export function deleteSong(songId, playlistName) {
   var dbRef = db.ref("playlists/" + playlistName + "/playlist/" + songId);
   return dbRef.remove();
 }

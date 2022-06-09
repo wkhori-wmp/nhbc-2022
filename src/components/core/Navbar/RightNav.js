@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { setPlaylistName } from "../../../firebase/firebase";
 import { HamburgerLinks } from "./Navbar.style";
+import { usePlaylistContext } from "../Providers/PlaylistContext";
 
 const RightNav = ({ open, toggleMenu }) => {
+  const { selectPlaylist } = usePlaylistContext();
   return (
     <HamburgerLinks open={open}>
       <li onClick={toggleMenu}>
@@ -13,7 +14,7 @@ const RightNav = ({ open, toggleMenu }) => {
         <Link
           to="/playlist"
           onClick={() => {
-            setPlaylistName("");
+            selectPlaylist({ name: "", uuid: "" });
           }}
         >
           Playlist

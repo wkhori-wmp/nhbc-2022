@@ -7,7 +7,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Trash2 } from "react-feather";
 import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
-import { deleteItem, deletePlaylist } from "../../../firebase/firebase";
 import FindPlaylist from "./FindPlaylist";
 import { YoutubeVideo, TrashIconWrapper } from "./Playlist.style";
 import { PageWrapper } from "../style";
@@ -17,7 +16,9 @@ const Playlist = () => {
   const {
     loading,
     playlists,
-    selectedPlaylist: { playlist },
+    selectedPlaylist: { name, uuid },
+    deletePlaylist,
+    deleteSong,
   } = usePlaylistContext();
   const { playlistId } = useParams();
   const [currentPlaylistName, setCurrentPlaylistName] = useState();
@@ -51,16 +52,16 @@ const Playlist = () => {
   // This means it will only one the code it contains one time
 
   const handleDelete = async (id) => {
-    deleteItem(id);
+    await deleteSong(id);
     // await getPlaylist();
   };
 
   const removeSong = async (id) => {
-    handleDelete(id);
+    await handleDelete(id);
     const newSongArr = currentPlaylist.filter((a) => a.index !== id);
     setCurrentPlaylist(newSongArr);
     if (newSongArr?.length === 0) {
-      await deletePlaylist(playlist);
+      deletePlaylist();
       history.push("/playlist");
     }
   };
@@ -131,15 +132,26 @@ const Playlist = () => {
               <CSVLink data={currentPlaylist} headers={csvHeaders}>
                 Export your playlist to a CSV
               </CSVLink>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  history.push("/playlist");
-                }}
-                style={{ display: "block", marginTop: "20px" }}
-              >
-                Go Back
-              </Button>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Button
+                  onClick={() => {
+                    history.push("/playlist");
+                  }}
+                  style={{ marginTop: "10px" }}
+                >
+                  Go Back
+                </Button>
+                <Button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    deletePlaylist();
+                    history.push("/playlist");
+                  }}
+                  style={{ marginTop: "10px" }}
+                >
+                  Delete Playlist
+                </Button>
+              </div>
             </>
           )}
         </>

@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { v1 as uuidv1 } from "uuid";
 import {
-  setPlaylistName,
-  getPlaylistName,
   setUUID,
-  getUUID,
   getPlaylists,
+  deletePlaylist as deletePlaylistFromDB,
+  getUUID,
+  addSongToPlaylistFirebase,
+  deleteSong as deleteSongFromDB,
 } from "../../../firebase/firebase";
 
 const PlaylistContext = createContext({ refreshPlaylist: () => {} });
@@ -12,8 +14,8 @@ const PlaylistContext = createContext({ refreshPlaylist: () => {} });
 export const PlaylistContextProvider = ({ children, ...props }) => {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({
-    name: getPlaylistName(),
-    uuid: getUUID(),
+    name: "",
+    uuid: "",
   });
   const [loading, setLoading] = useState(true);
 
@@ -47,21 +49,33 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
   }, []);
 
   const selectPlaylist = ({ playlist, uuid }) => {
-    setSelectedPlaylist({ playlist, uuid });
-    setPlaylistName(playlist);
-    setUUID(uuid);
+    console.log(playlist, "!!!");
+    setSelectedPlaylist({ name: playlist, uuid });
   };
 
-  const createPlaylist = ({ playlist, uuid }) => {
-    // TODO Finish
+  const getPlaylistId = () => {
+    const uuid = getUUID(selectedPlaylist.name);
+    setSelectedPlaylist({ name: selectedPlaylist.name, uuid });
   };
 
-  const deletePlaylist = ({ playlist, uuid }) => {
-    // TODO Finish
+  const createPlaylist = (playlistName) => {
+    const id = uuidv1();
+    setUUID(playlistName, id);
+    selectPlaylist({ playlist: playlistName, uuid: id });
   };
 
-  const deleteSong = ({ playlist, uuid }) => {
-    // TODO Finish
+  const deletePlaylist = () => {
+    deletePlaylistFromDB(selectedPlaylist.name);
+  };
+
+  const addSong = (songInfo) => {
+    console.log(songInfo);
+    console.log(selectedPlaylist);
+    addSongToPlaylistFirebase(songInfo, selectedPlaylist.name);
+  };
+
+  const deleteSong = async (songId) => {
+    await deleteSongFromDB(songId, selectedPlaylist.name);
   };
 
   return (
@@ -70,8 +84,12 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
         playlists,
         setPlaylists,
         loading,
+        createPlaylist,
         selectPlaylist,
         selectedPlaylist,
+        deletePlaylist,
+        addSong,
+        deleteSong,
       }}
       {...props}
     >

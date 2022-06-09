@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { v1 as uuidv1 } from "uuid";
-import { setPlaylistName } from "../../../firebase/firebase";
 import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import PlaylistList from "./PlaylistList";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
@@ -16,22 +15,24 @@ import {
 // Shared component between /playlist and /add-song
 const FindPlaylist = () => {
   const history = useHistory();
-  const { playlists, loading } = usePlaylistContext();
-  const [playlistID, setPlaylistID] = useState("");
+  const { playlists, loading, selectedPlaylist, createPlaylist } =
+    usePlaylistContext();
+  const [playlistName, setPlaylistName] = useState("");
   const id = uuidv1();
 
-  const handlePlaylistChange = (event) => {
-    setPlaylistID(event.target.value);
+  const handleInputChange = (event) => {
+    setPlaylistName(event.target.value);
   };
 
   const findPlaylist = () => {
-    if (playlistID === "") {
+    if (playlistName === "") {
       alert("Please enter at least one character for a playlist name!");
-    } else if (playlists.filter((p) => p.name === playlistID).length > 0) {
+    } else if (playlists.filter((p) => p.name === playlistName).length > 0) {
       alert("A playlist with that name already exists");
     } else {
-      setPlaylistName(playlistID);
-      history.push(`/add-song/${id}`, { uuid: id });
+      console.log(playlistName, "playlistName");
+      createPlaylist(playlistName);
+      history.push(`/add-song/${selectedPlaylist.uuid}`);
     }
   };
 
@@ -47,8 +48,8 @@ const FindPlaylist = () => {
             style={createPlaylistFormInputStyles}
             type="text"
             name="name"
-            value={playlistID}
-            onChange={handlePlaylistChange}
+            value={playlistName}
+            onChange={handleInputChange}
             feedbackType="invalid"
           />
           <Button
