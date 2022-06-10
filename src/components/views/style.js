@@ -1,6 +1,7 @@
+// global project style file
 import styled, { css } from "styled-components";
 
-export const breakpoints = (
+const breakpoints = (
   cssProp = "padding", // the CSS property to apply to the breakpoints
   cssPropUnits = "px", // the units of the CSS property (can set equal to "" and apply units to values directly)
   values = [], // array of objects, e.g. [{ 800: 60 }, ...] <-- 800 (key) = screen breakpoint, 60 (value) = CSS prop breakpoint
@@ -12,33 +13,17 @@ export const breakpoints = (
       Object.values(value)[0],
     ];
     return (mediaQueries += `
-    @media screen and (${mediaQueryType}: ${screenBreakpoint}px) {
-      ${cssProp}: ${cssPropBreakpoint}${cssPropUnits};
-    }
-    `);
+      @media screen and (${mediaQueryType}: ${screenBreakpoint}px) {
+        ${cssProp}: ${cssPropBreakpoint}${cssPropUnits};
+      }
+      `);
   }, "");
   return css([breakpointProps]);
 };
 
-export const AddSongWrapper = styled.div`
+export const PageWrapper = styled.div`
   margin: 0 auto;
   max-width: 800px;
   ${breakpoints("margin-left", "%", [{ 2000: 25 }, { 600: 10 }])};
   ${breakpoints("width", "%", [{ 2000: 50 }, { 600: 80 }])};
-`;
-
-export const AddSongForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-`;
-
-export const FormTitle = styled.h1`
-  margin-bottom: 20px;
-`;
-
-export const YoutubeIcon = styled.img`
-  max-width: 30px;
-  max-height: 30px;
-  margin-left: 5px;
 `;

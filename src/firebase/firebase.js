@@ -12,19 +12,13 @@ const config = {
   measurementId: "G-BS8L3EFT04",
 };
 
-const app = firebase.initializeApp(config);
+let app;
+if (!firebase.apps.length) {
+  app = firebase.initializeApp(config);
+} else {
+  app = firebase.app(); // if already initialized, use that one
+}
 const db = firebase.database(app);
-
-//export default firebase;
-var myUsername = "";
-
-export function getUsername() {
-  return myUsername;
-}
-
-export function setUsername(id) {
-  myUsername = id;
-}
 
 /**
  * Function that creates a new playlistItem in firebase
@@ -35,20 +29,23 @@ export function setUsername(id) {
  *       dosomething(response.data);
  *  });
  *
- * @param {object} item - New item to store
+ * @param {object} songInfo - New item to store
  * @returns {Promise} - API response
  */
-export function createItem(item) {
+export function addSongToPlaylistFirebase(songInfo, playlistName) {
   const dbRef = db.ref(
-    "users/" + myUsername + "/playlist/song-" + Math.round(Math.random() * 1000)
+    "playlists/" +
+      playlistName +
+      "/playlist/song-" +
+      Math.round(Math.random() * 1000)
   );
   return dbRef.set({
-    ...item,
+    ...songInfo,
   });
 }
 
-export function setUUID(uuid) {
-  const dbRef = db.ref("users/" + myUsername + "/uuid");
+export function setUUID(playlistName, uuid) {
+  const dbRef = db.ref("playlists/" + playlistName + "/uuid");
   return dbRef.set(uuid);
 }
 
@@ -64,8 +61,8 @@ export function setUUID(uuid) {
  *
  * @returns {Promise}
  */
-export function getItems() {
-  var dbRef = db.ref("users/" + myUsername + "/playlist");
+export function getItems(playlistName) {
+  var dbRef = db.ref("playlists/" + playlistName + "/playlist");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);
@@ -75,8 +72,8 @@ export function getItems() {
   });
 }
 
-export function getUUID() {
-  var dbRef = db.ref("users/" + myUsername + "/uuid");
+export function getUUID(playlistName) {
+  var dbRef = db.ref("playlists/" + playlistName + "/uuid");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);
@@ -97,13 +94,13 @@ export function getUUID() {
  * @param {string} songId - ID of the song to delete
  * @returns {Promise}
  */
-export function deleteItem(songId) {
-  var dbRef = db.ref("users/" + myUsername + "/playlist/" + songId);
+export function deleteSong(songId, playlistName) {
+  var dbRef = db.ref("playlists/" + playlistName + "/playlist/" + songId);
   return dbRef.remove();
 }
 
-export function deletePlaylist(username) {
-  var dbRef = db.ref("users/" + username);
+export function deletePlaylist(playlist) {
+  var dbRef = db.ref("playlists/" + playlist);
   return dbRef.remove();
 }
 
@@ -120,7 +117,7 @@ export function deletePlaylist(username) {
  * @returns {Promise}
  */
 export function getPlaylists() {
-  var dbRef = db.ref("users");
+  var dbRef = db.ref("playlists");
 
   return new Promise((resolve, reject) => {
     const onError = (error) => reject(error);

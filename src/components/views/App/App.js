@@ -1,8 +1,9 @@
 import React from "react";
 import { AppWrapper } from "./App.style";
-import NavBar from "../../core/nav-bar";
+import Navbar from "../../core/Navbar/Navbar";
 import { Route, Switch } from "react-router-dom";
 import routes from "../../../routes/routes";
+import { PlaylistContextProvider } from "../../core/Providers/PlaylistContext";
 
 const App = () => {
   const renderedRoutes = routes.map((route) => (
@@ -11,12 +12,12 @@ const App = () => {
   // The NavBar component will live at the top of every page
   // The switch renders the appropriate component (page) for the appropriate path
   return (
-    <div className="App">
+    <PlaylistContextProvider>
       <AppWrapper>
-        <NavBar />
+        <Navbar />
         <Switch>{renderedRoutes}</Switch>
       </AppWrapper>
-    </div>
+    </PlaylistContextProvider>
   );
 };
 

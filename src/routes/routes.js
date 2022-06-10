@@ -1,7 +1,7 @@
-import Home from "../components/views/home";
-import Playlist from "../components/views/playlist";
-import FindPlaylist from "../components/views/playlist";
-import AddSong from "../components/views/add-song";
+import Home from "../components/views/Home/Home";
+import Playlist from "../components/views/Playlist/Playlist";
+import FindPlaylist from "../components/views/Playlist/FindPlaylist";
+import AddSong from "../components/views/AddSong/AddSong";
 
 // Route definitions link url paths to components
 const routes = [
@@ -21,12 +21,12 @@ const routes = [
     path: "/playlist",
   },
   {
-    component: AddSong, // AddSong component will render when path is '/playlist'
+    component: AddSong, // AddSong component will render when path is '/add-song'
     exact: true,
     path: "/add-song/:playlistId",
   },
   {
-    component: AddSong, // AddSong component will render when path is '/playlist'
+    component: AddSong, // AddSong component will render when path is '/add-song'
     exact: true,
     path: "/add-song",
   },
