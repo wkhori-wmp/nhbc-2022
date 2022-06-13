@@ -7,7 +7,7 @@ const Burger = () => {
   function toggleMenu() {
     /*
      * For this TO DO, fix the broken toggleMenu function with the useState hook
-     * to keep track of whether the burger menu is open
+     * to keep track of whether the hamburger menu is open
      */
     console.log("this should open and close the burger menu");
   }
