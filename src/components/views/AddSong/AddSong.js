@@ -22,20 +22,9 @@ const AddSong = () => {
   const { playlistId } = useParams();
   const {
     selectedPlaylist: { name },
-    playlists,
-    selectPlaylist,
     loading,
     addSong,
   } = usePlaylistContext();
-
-  useEffect(() => {
-    if (playlistId) {
-      const currPlaylist = playlists.find(
-        (playlist) => playlist.uuid === playlistId
-      );
-      selectPlaylist({ playlist: currPlaylist?.name, uuid: playlistId });
-    }
-  }, [playlists]);
 
   // React Hook Form
   const {

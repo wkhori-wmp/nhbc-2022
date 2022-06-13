@@ -62,7 +62,7 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
   const createPlaylist = (playlistName) => {
     const uuid = uuidv1();
     setUUID(playlistName, uuid);
-    selectPlaylist({ playlist: playlistName, uuid });
+    setSelectedPlaylist({ name: playlistName, uuid });
     return uuid;
   };
 
