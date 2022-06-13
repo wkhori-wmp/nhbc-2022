@@ -60,7 +60,7 @@ const FindPlaylist = () => {
         </CreatePlaylistFormWrapper>
       </div>
       <h1> Existing Playlists</h1>
-      {loading ? <LoadingIcon /> : <PlaylistList playlists={playlists} />}
+      <PlaylistList playlists={playlists} />
     </PageWrapper>
   );
 };
