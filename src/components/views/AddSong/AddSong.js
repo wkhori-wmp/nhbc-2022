@@ -54,8 +54,13 @@ const AddSong = () => {
   });
 
   const onSubmit = async (formData) => {
-    await addSong(formData);
-    history.push("/playlist");
+    console.log(formData);
+    /*
+     * For this TO DO, implement the following features:
+     *
+     * 1. add the song to our backend (hint: go check out some of the API calls in src/components/core/Providers/PlaylistContext.js)
+     * 2. redirect the user to the playlist using the useHistory hook (https://v5.reactrouter.com/web/api/Hooks)
+     */
   };
 
   const {
