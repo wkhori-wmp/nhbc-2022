@@ -62,7 +62,23 @@ const AddSong = () => {
           ) : (
             <>
               <PageWrapper>
-                <FormTitle>Add song for {name}</FormTitle>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormTitle>Add song for {name}</FormTitle>
+                  <Button
+                    onClick={() => {
+                      history.push("/playlist");
+                    }}
+                    style={{ width: "min-content" }}
+                  >
+                    Go Back
+                  </Button>
+                </div>
                 <FormProvider register={register}>
                   <AddSongForm onSubmit={handleSubmit(onSubmit)}>
                     <label htmlFor={title.label}>Title:</label>

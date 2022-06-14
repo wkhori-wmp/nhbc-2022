@@ -50,6 +50,8 @@ export const StyledPlaylistIcon = styled(Playlist)`
   margin-top: 2px;
   &:hover {
     cursor: pointer;
+    border: black solid 2px;
+    border-radius: 5px;
   }
 `;
 
@@ -57,5 +59,7 @@ export const StyledAddSongIcon = styled(PlaylistAdd)`
   margin-bottom: 8px;
   &:hover {
     cursor: pointer;
+    border: black solid 2px;
+    border-radius: 5px;
   }
 `;
