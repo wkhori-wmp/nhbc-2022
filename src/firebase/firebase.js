@@ -32,7 +32,7 @@ const db = firebase.database(app);
  * @param {object} songInfo - New item to store
  * @returns {Promise} - API response
  */
-export function addSongToPlaylistFirebase(songInfo, playlistName) {
+export function addSong(songInfo, playlistName) {
   const dbRef = db.ref(
     "playlists/" +
       playlistName +
@@ -44,7 +44,7 @@ export function addSongToPlaylistFirebase(songInfo, playlistName) {
   });
 }
 
-export function setUUID(playlistName, uuid) {
+export function setPlaylistUUID(playlistName, uuid) {
   const dbRef = db.ref("playlists/" + playlistName + "/uuid");
   return dbRef.set(uuid);
 }
@@ -61,16 +61,16 @@ export function setUUID(playlistName, uuid) {
  *
  * @returns {Promise}
  */
-export function getItems(playlistName) {
-  var dbRef = db.ref("playlists/" + playlistName + "/playlist");
+// export function getItems(playlistName) {
+//   var dbRef = db.ref("playlists/" + playlistName + "/playlist");
 
-  return new Promise((resolve, reject) => {
-    const onError = (error) => reject(error);
-    const onData = (snap) => resolve(snap.val());
+//   return new Promise((resolve, reject) => {
+//     const onError = (error) => reject(error);
+//     const onData = (snap) => resolve(snap.val());
 
-    dbRef.on("value", onData, onError);
-  });
-}
+//     dbRef.on("value", onData, onError);
+//   });
+// }
 
 export function getUUID(playlistName) {
   var dbRef = db.ref("playlists/" + playlistName + "/uuid");
