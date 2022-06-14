@@ -59,7 +59,6 @@ const Playlist = () => {
 
   const handleDelete = async (id) => {
     await deleteSong(id);
-    // await getPlaylist();
   };
 
   const removeSong = async (id) => {
@@ -67,8 +66,7 @@ const Playlist = () => {
     const newSongArr = currentPlaylist.filter((a) => a.index !== id);
     setCurrentPlaylist(newSongArr);
     if (newSongArr?.length === 0) {
-      deletePlaylist();
-      history.push("/playlist");
+      deletePlaylist(); // delete playlist when it no longer has any songs
     }
   };
 
@@ -142,19 +140,14 @@ const Playlist = () => {
                 Export your playlist to a CSV
               </CSVLink>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button
-                  onClick={() => {
-                    history.push("/playlist");
-                  }}
-                  style={{ marginTop: "10px" }}
-                >
-                  Go Back
-                </Button>
+                <Button style={{ marginTop: "10px" }}>Go Back</Button>
                 <Button
                   className="btn btn-danger"
                   onClick={() => {
+                    /*
+                     * Ideally we should be redirected back to "/playlist" route if we're deleting a playlist
+                     */
                     deletePlaylist();
-                    history.push("/playlist");
                   }}
                   style={{ marginTop: "10px" }}
                 >
