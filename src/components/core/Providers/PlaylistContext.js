@@ -19,12 +19,6 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
   });
   const [loading, setLoading] = useState(true);
 
-  //   const refreshPlaylist = (jwt) => {
-  //     fetchPlaylists(jwt)
-  //       .then((Playlist) => setPlaylists(Playlist))
-  //       .finally(() => setLoading(false));
-  //   };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchPlaylistsFromFirebase = async () => {
     const result = await getPlaylists();
@@ -73,6 +67,7 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
 
   const addSong = (songInfo) => {
     addSongToPlaylistFirebase(songInfo, selectedPlaylist.name);
+    fetchPlaylistsFromFirebase();
   };
 
   const deleteSong = async (songId) => {
