@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
-import PlaylistList from "./PlaylistList";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
+import PlaylistList from "./PlaylistList";
 import { PageWrapper } from "../style";
 import {
   CreatePlaylistFormWrapper,
