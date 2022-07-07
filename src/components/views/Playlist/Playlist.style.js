@@ -17,20 +17,7 @@ export const TrashIconWrapper = styled.div`
   }
 `;
 
-export const ExistingPlaylistRow = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  border: black solid 1px;
-  border-radius: 5px;
-  height: 45px;
-  margin-bottom: 1rem;
-  padding-left: 12px;
-  padding-right: 12px;
-  &:hover {
-    background-color: #909590;
-  }
-`;
+export const ExistingPlaylistRow = styled.div``;
 
 export const CreatePlaylistFormWrapper = styled.div`
   display: flex;
@@ -46,20 +33,6 @@ export const createPlaylistFormInputStyles = {
   backgroundColor: "#e9eef1",
 };
 
-export const StyledPlaylistIcon = styled(Playlist)`
-  margin-top: 2px;
-  &:hover {
-    cursor: pointer;
-    border: black solid 2px;
-    border-radius: 5px;
-  }
-`;
+export const StyledPlaylistIcon = styled(Playlist)``;
 
-export const StyledAddSongIcon = styled(PlaylistAdd)`
-  margin-bottom: 8px;
-  &:hover {
-    cursor: pointer;
-    border: black solid 2px;
-    border-radius: 5px;
-  }
-`;
+export const StyledAddSongIcon = styled(PlaylistAdd)``;
