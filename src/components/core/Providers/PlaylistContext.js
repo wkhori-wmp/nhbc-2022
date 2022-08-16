@@ -66,6 +66,7 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
 
   const deleteSong = async (songId) => {
     await deleteSongFromDB(songId, selectedPlaylist.name);
+    fetchPlaylistsFromFirebase();
   };
 
   return (
