@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-import { v1 as uuidv1 } from "uuid";
 import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
 import PlaylistList from "./PlaylistList";
 import LoadingIcon from "../../core/LoadingIcon/LoadingIcon";
@@ -17,7 +16,6 @@ const FindPlaylist = () => {
   const history = useHistory();
   const { playlists, loading, createPlaylist } = usePlaylistContext();
   const [playlistName, setPlaylistName] = useState("");
-  const id = uuidv1();
 
   const handleInputChange = (event) => {
     setPlaylistName(event.target.value);
