@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { v1 as uuidv1 } from "uuid";
 import {
-  setUUID,
+  setPlaylistUUID,
   getPlaylists,
   deletePlaylist as deletePlaylistFromDB,
-  getUUID,
-  addSongToPlaylistFirebase,
+  addSong as addSongToPlaylistFirebase,
   deleteSong as deleteSongFromDB,
 } from "../../../firebase/firebase";
 
@@ -45,16 +44,11 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
     setSelectedPlaylist({ name: playlist, uuid });
   };
 
-  const getPlaylistId = () => {
-    const uuid = getUUID(selectedPlaylist.name);
-    setSelectedPlaylist({ name: selectedPlaylist.name, uuid });
-  };
-
   // creates a new playlist by name and returns the uuid
   const createPlaylist = (playlistName) => {
     const uuid = uuidv1();
-    setUUID(playlistName, uuid);
-    selectPlaylist({ playlist: playlistName, uuid });
+    setPlaylistUUID(playlistName, uuid);
+    setSelectedPlaylist({ name: playlistName, uuid });
     return uuid;
   };
 
@@ -65,10 +59,12 @@ export const PlaylistContextProvider = ({ children, ...props }) => {
 
   const addSong = (songInfo) => {
     addSongToPlaylistFirebase(songInfo, selectedPlaylist.name);
+    fetchPlaylistsFromFirebase();
   };
 
   const deleteSong = async (songId) => {
     await deleteSongFromDB(songId, selectedPlaylist.name);
+    fetchPlaylistsFromFirebase();
   };
 
   return (
@@ -95,7 +91,8 @@ export function usePlaylistContext() {
   const context = useContext(PlaylistContext);
 
   if (context === null) {
-    throw new Error("Using playlist context outside provider"); // throw error if using this hook outside the provider
+    // throw error if using this hook outside the provider
+    throw new Error("Using playlist context outside provider");
   }
 
   return context;
