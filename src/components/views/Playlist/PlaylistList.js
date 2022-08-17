@@ -1,8 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
-import { ExistingPlaylistRow } from "./Playlist.style";
+import {
+  ExistingPlaylistRow,
+  StyledPlaylistIcon,
+  StyledAddSongIcon,
+} from "./Playlist.style";
 
 const PlaylistList = ({ playlists }) => {
   const history = useHistory();
@@ -20,34 +23,31 @@ const PlaylistList = ({ playlists }) => {
 
   return (
     <>
-      <ExistingPlaylistRow>
-        <span style={{ flexGrow: 0.4 }}>
-          <strong>{playlists[0].name}</strong>
-        </span>
+        <ExistingPlaylistRow>
+          <StyledPlaylistIcon
+            onClick={() => viewPlaylist(playlists[0].name, playlists[0].uuid)}
+            size="22"
+          />
+          <span style={{ flexGrow: 1 }}>
+            <strong>{playlists[0].name}</strong>
+          </span>
 
-        <Button
-          variant="link"
-          className="btn-sm"
-          style={{ padding: "0px" }}
-          onClick={() =>
-            viewPlaylist(playlists[0].name.name, playlists[0].uuid)
-          }
-        >
-          View Playlist
-        </Button>
-        <Button
-          variant="link"
-          className="btn-sm"
-          style={{ padding: "0px" }}
-          onClick={() => addSong(playlists[0].name, playlists[0].uuid)}
-        >
-          Add Song
-        </Button>
-        <span style={{ flexGrow: 0.1 }}>
-          {playlists[0].songCount} Song
-          {playlists[0].songCount !== 1 && "s"}
-        </span>
-      </ExistingPlaylistRow>
+          <span>
+            {playlists[0].songCount} Song
+            {playlists[0].songCount !== 1 && "s"}
+          </span>
+          <div
+            style={{
+              alignSelf: "flex-end",
+              display: "flex",
+              gap: "5px",
+            }}
+          >
+            <StyledAddSongIcon
+              onClick={() => addSong(playlists[0].name, playlists[0].uuid)}
+            />
+          </div>
+        </ExistingPlaylistRow>
     </>
   );
 };

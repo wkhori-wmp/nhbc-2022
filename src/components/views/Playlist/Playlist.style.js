@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PlaylistAdd, Playlist } from "tabler-icons-react";
 
 export const YoutubeVideo = styled.iframe`
   width: 560px;
@@ -18,7 +19,7 @@ export const TrashIconWrapper = styled.div`
 
 export const ExistingPlaylistRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   align-items: center;
   border: black solid 1px;
   border-radius: 5px;
@@ -26,6 +27,9 @@ export const ExistingPlaylistRow = styled.div`
   margin-bottom: 1rem;
   padding-left: 12px;
   padding-right: 12px;
+  &:hover {
+    background-color: #909590;
+  }
 `;
 
 export const CreatePlaylistFormWrapper = styled.div`
@@ -41,3 +45,21 @@ export const createPlaylistFormInputStyles = {
   minWidth: "180px",
   backgroundColor: "#e9eef1",
 };
+
+export const StyledPlaylistIcon = styled(Playlist)`
+  margin-top: 2px;
+  &:hover {
+    cursor: pointer;
+    border: black solid 2px;
+    border-radius: 5px;
+  }
+`;
+
+export const StyledAddSongIcon = styled(PlaylistAdd)`
+  margin-bottom: 8px;
+  &:hover {
+    cursor: pointer;
+    border: black solid 2px;
+    border-radius: 5px;
+  }
+`;
