@@ -34,10 +34,7 @@ const db = firebase.database(app);
  */
 export function addSong(songInfo, playlistName) {
   const dbRef = db.ref(
-    "playlists/" +
-      playlistName +
-      "/playlist/song-" +
-      Math.round(Math.random() * 1000)
+    "playlists/" + playlistName + "/playlist/song-" + songInfo.index
   );
   return dbRef.set({
     ...songInfo,
@@ -95,7 +92,7 @@ export function getUUID(playlistName) {
  * @returns {Promise}
  */
 export function deleteSong(songId, playlistName) {
-  var dbRef = db.ref("playlists/" + playlistName + "/playlist/" + songId);
+  var dbRef = db.ref("playlists/" + playlistName + "/playlist/song-" + songId);
   return dbRef.remove();
 }
 
