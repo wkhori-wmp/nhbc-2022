@@ -1,8 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import { usePlaylistContext } from "../../core/Providers/PlaylistContext";
-import { ExistingPlaylistRow } from "./Playlist.style";
+import {
+  ExistingPlaylistRow,
+  StyledPlaylistIcon,
+  StyledAddSongIcon,
+} from "./Playlist.style";
 
 const PlaylistList = ({ playlists }) => {
   const history = useHistory();
@@ -22,31 +25,29 @@ const PlaylistList = ({ playlists }) => {
     <>
       {playlists.map((playlist) => (
         <ExistingPlaylistRow>
-          <span style={{ flexGrow: 0.4 }}>
+          <StyledPlaylistIcon
+            onClick={() => viewPlaylist(playlist.name, playlist.uuid)}
+            size="22"
+          />
+          <span style={{ flexGrow: 1 }}>
             <strong>{playlist.name}</strong>
           </span>
 
-          <Button
-            variant="link"
-            className="btn-sm"
-            style={{ padding: "0px" }}
-            onClick={() => viewPlaylist(playlist.name, playlist.uuid)}
-          >
-            View Playlist
-          </Button>
-          <Button
-            variant="link"
-            className="btn-sm"
-            style={{ padding: "0px" }}
-            onClick={() => addSong(playlist.name, playlist.uuid)}
-          >
-            Add Song
-          </Button>
-
-          <span style={{ flexGrow: 0.1 }}>
+          <span>
             {playlist.songCount} Song
             {playlist.songCount !== 1 && "s"}
           </span>
+          <div
+            style={{
+              alignSelf: "flex-end",
+              display: "flex",
+              gap: "5px",
+            }}
+          >
+            <StyledAddSongIcon
+              onClick={() => addSong(playlist.name, playlist.uuid)}
+            />
+          </div>
         </ExistingPlaylistRow>
       ))}
     </>
